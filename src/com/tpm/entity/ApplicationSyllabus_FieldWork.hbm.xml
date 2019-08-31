@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.ApplicationSyllabus_FieldWork"
+		table="实践课实习大纲应用专业表">
+		<id name="applicationSyllabus_FieldWorkid" column="实践课实习大纲应用专业表ID">
+			<generator class="native"></generator>
+		</id>
+
+		<many-to-one name="syllabus_FieldWork"
+			class="com.tpm.entity.Syllabus_FieldWork" column="对应大纲"></many-to-one>
+		<many-to-one name="curriculum"
+			class="com.tpm.entity.Curriculum" column="对应课"></many-to-one>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="对应系"></many-to-one>
+		<many-to-one name="professional"
+			class="com.tpm.entity.Professional" column="对应方向"></many-to-one>
+	</class>
+</hibernate-mapping>

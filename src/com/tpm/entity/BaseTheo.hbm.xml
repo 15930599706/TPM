@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.BaseTheo" table="理论课大纲基本信息表">
+		<id name="baseTheoid" column="基本信息ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="firstcurriculum" column="先修课程"></property>
+		<property name="plan" column="教学安排" length="5000"></property>
+
+		<set name="setSyllabus" inverse="true" cascade="delete">
+			<key column="大纲基本信息"></key>
+			<one-to-many class="com.tpm.entity.Syllabus" />
+		</set>
+	</class>
+</hibernate-mapping>

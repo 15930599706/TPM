@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.TeachObj_TheoInnerExperiment"
+		table="教学目标理论课课内实验表">
+		<id name="teachObj_TheoInnerExperimentid" column="教学目标课内实验表ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="teachObjContent_TheoInnerExperiment"
+			column="教学目标内容"></property>
+
+		<set name="setAbilityAndTeachObj_TheoInnerExperiment"
+			inverse="true" cascade="delete">
+			<key column="对应教学目标"></key>
+			<one-to-many
+				class="com.tpm.entity.AbilityAndTeachObj_TheoInnerExperiment" />
+		</set>
+
+		<property name="syllabusid" column="大纲课内实验表ID"></property>
+	</class>
+</hibernate-mapping>

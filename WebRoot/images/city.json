@@ -1,0 +1,25 @@
+[
+	{
+		"id": "1",
+		"text": "灞变笢",
+		"children": [
+			{
+				"id": "11",
+				"text": "娴庡崡",
+				"leaf": false
+			},
+			{
+				"id": "12",
+				"text": "娣勫崥",
+				"leaf": false,
+				"children": [
+					{
+						"id": "121",
+						"text": "楂橀潚",
+						"leaf": true
+					}
+				]
+			}
+		]
+	}
+]

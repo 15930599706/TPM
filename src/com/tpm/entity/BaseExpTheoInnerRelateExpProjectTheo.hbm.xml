@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.BaseExpTheoInnerRelateExpProjectTheo"
+		table="学时分配实验内容关联表">
+		<!-- 这个是实体中的name属性 对应 表中column属性 -->
+		<id name="relateid" column="学时分配实验内容关联表ID">
+			<generator class="native"></generator>
+		</id>
+
+		<!-- 多对一属性 -->
+		<many-to-one name="theoInnerExperiment"
+			class="com.tpm.entity.DistributeHour_TheoInnerExperiment"
+			column="学时分配"></many-to-one>
+
+		<many-to-one name="theo"
+			class="com.tpm.entity.ExpermentProject_Theo" column="实验内容"></many-to-one>
+	</class>
+</hibernate-mapping>

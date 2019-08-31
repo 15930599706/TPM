@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.DistributeHour_Theo"
+		table="理论课大纲学时分配表">
+		<id name="distributeHour_Theoid" column="学时分配ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="name" column="讲课内容"></property>
+		<property name="hoursOfClass" column="讲课学时"></property>
+		<property name="hoursOfExp" column="实验学时"></property>
+		<property name="hoursOfCom" column="上机学时"></property>
+		<property name="syllabusid" column="理论课大纲ID"></property>
+	</class>
+</hibernate-mapping>

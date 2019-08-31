@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.Syllabus_Gra" table="大纲毕业设计表">
+		<id name="syllabus_Graid" column="大纲毕业设计表ID">
+			<generator class="native"></generator>
+		</id>
+		<many-to-one name="basePractice"
+			class="com.tpm.entity.BasePractice" column="毕业设计基本信息"></many-to-one>
+		<many-to-one name="contentGra"
+			class="com.tpm.entity.ContentGra" column="毕业设计内容"></many-to-one>
+
+
+		<set name="setApplicationSyllabus_Gra" inverse="true"
+			cascade="delete">
+			<key column="对应大纲"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_Gra" />
+		</set>
+	</class>
+</hibernate-mapping>

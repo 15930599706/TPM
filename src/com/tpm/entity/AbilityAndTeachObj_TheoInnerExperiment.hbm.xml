@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class
+		name="com.tpm.entity.AbilityAndTeachObj_TheoInnerExperiment"
+		table="毕业要求与教学目标对应理论课课内实验表">
+		<id name="abilityAndTeachObj_TheoInnerExperimentid"
+			column="毕业要求与教学目标对应毕业设计表ID">
+			<generator class="native"></generator>
+		</id>
+
+		<many-to-one name="ability" class="com.tpm.entity.Ability"
+			column="对应毕业要求"></many-to-one>
+		<many-to-one name="teachObj_TheoInnerExperiment"
+			class="com.tpm.entity.TeachObj_TheoInnerExperiment" column="对应教学目标"
+			lazy="false"></many-to-one>
+		<property name="syllabusid" column="大纲课内实验表ID"></property>
+	</class>
+</hibernate-mapping>

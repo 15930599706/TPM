@@ -1,0 +1,218 @@
+@font-face { /*声明字体  引用字体*/
+	font-family: "icomoon"; /*我们自己起名字可以*/
+	src: url('../fonts/icomoon.eot?7kkyc2');
+	src: url('../fonts/icomoon.eot?7kkyc2#iefix')
+		format('embedded-opentype'), url('../fonts/icomoon.ttf?7kkyc2')
+		format('truetype'), url('../fonts/icomoon.woff?7kkyc2') format('woff'),
+		url('../fonts/icomoon.svg?7kkyc2#icomoon') format('svg');
+	font-style: normal; /*倾斜字体正常*/
+}
+
+html {
+	height: 100%;
+}
+
+body {
+	width: 1330px;
+	height: 1000px;
+	/* background-color:pink; */
+}
+
+#header {
+	width: 100%;
+	height: 15%;
+	border: 2px solid #ccc;
+	margin-bottom: 1%;
+}
+
+#bottom {
+	width: 100%;
+	height: 80%;
+}
+
+#bottom_left {
+	float: left;
+	width: 24%;
+	height: 100%;
+	border: 2px solid #ccc;
+	border-bottom: 0;
+}
+
+#bottom_right {
+	float: right;
+	width: 75%;
+	height: 100%;
+	border: 2px solid #ccc;
+	border-bottom: 0;
+}
+
+#bottom_search {
+	width: 100%;
+	height: 30%;
+}
+
+#bottom_search li {
+	display: inline-block;
+	float: left;
+	margin-right: 5%;
+}
+
+#bottom li {
+	list-style: none;
+	margin-bottom: 10px;
+}
+
+select {
+	width: 100px;
+}
+
+p {
+	display: inline;
+}
+
+#questionnaire_question {
+	border: 2px solid #ccc;
+}
+
+table {
+	margin-top: 10%;
+	margin-left: 19%;
+	cellspacing: 0;
+	cellpadding: 0;
+}
+
+tr {
+	height: 30px;
+}
+
+th, td {
+	text-align: center;
+	width: 150px;
+	border-right: 1px solid #000;
+}
+
+#tr_first {
+	background-color: #ccc;
+}
+
+#choice {
+	margin-left: 16%;
+}
+
+.odd {
+	background-color: #ecf3fb;
+}
+
+th {
+	font-weight: normal;
+	font-size: 14px;
+	background-color: #b1ccea;
+}
+
+#naire {
+	display: inline-block;
+	margin-top: 10px;
+	margin-left: 10px;
+}
+
+.chose {
+	display: inline-block;
+	float: right;
+	margin-right: 10%;
+	margin-top: 2%;
+}
+
+#publishnext {
+	display: inline-block;
+	width: 10%;
+}
+
+#publish_message {
+	text-align: center;
+}
+
+#publish_btn {
+	height: 50px;
+	width: 100px;
+	float: right;
+	margin-right: 10%;
+}
+
+#table_bottom {
+	margin-top: 5%;
+	margin-left: 46%;
+}
+
+/*student.html侧导航栏样式*/
+/* #do{display:block; font-style:none;} */
+.sidebar {
+	width: 180px;
+	float: left;
+	padding-left: 35px;
+}
+
+.sidebar>ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+.sidebar>ul>li {
+	font-size: 18px;
+	font-weight: 400;
+	padding: 0010px;
+	margin-top: 15px;
+}
+
+.sidebar>ul>li>ul {
+	display: block;
+	list-style: none;
+	margin: 5px010px0;
+	padding: 10px0010px;
+	font-size: 14px;
+}
+
+.sidebar a {
+	line-height: 1.5;
+}
+
+.sidebar a:hover {
+	color: #e74430;
+	cursor: pointer;
+}
+
+.sidebar-selected {
+	color: #e74430;
+}
+
+#sidebar-selected {
+	margin-top: 20px;
+}
+
+#finished_questionnaire {
+	margin-left: 15%;
+	margin-top: 5%;
+}
+/* student.htm里显示样式*/
+#bottom #bottom_right #questionnaireName {
+	max-width: 150px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.bottom_right_done, .bottom_right_notdone {
+	display: none;
+}
+
+#finished_questionnaire_list {
+	border: 2px solid #ccc;
+	margin-left: 10%;
+}
+
+#finished_questionnaire_list td {
+	max-width: 150px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

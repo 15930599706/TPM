@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<constant name="struts.action.extension" value="action"></constant>
+	<constant name="struts.multipart.saveDir" value="/tmp" />
+	<constant name="struts.multipart.maxSize" value="52428800"></constant>
+	<package name="tpm" namespace="/" extends="json-default">
+
+		<interceptors>
+			<interceptor name="privilege"
+				class="com.tpm.util.PrivilegeIntercptor"></interceptor>
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack">
+					<param name="excludeMethods">user</param>
+				</interceptor-ref>
+				<interceptor-ref name="privilege"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="login">/jump.jsp</result>
+		</global-results>
+		<action name="login_*" class="loginAction" method="{1}">
+			<result name="loginsuccess" type="redirect">/index.jsp</result>
+			<result name="outlogin" type="redirect">/login.jsp</result>
+			<result name="loginin">/login.jsp</result>
+		</action>
+
+
+
+
+
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="loginsuccess">/index.jsp</result>
+			<result name="toeditpwdPage">/admin/editpwd.jsp</result>
+			<result name="editpwd">/admin/editpwd.jsp</result>
+			<result name="tozybmPage">/admin/zybm.jsp</result>
+			<result name="toxybmPage">/admin/xybm.jsp</result>
+			<result name="tosysbmPage">/admin/sysbm.jsp</result>
+			<result name="tozyfxPage">/admin/zyfx.jsp</result>
+			<result name="importCollegeExcel">/admin/Suc.jsp</result>
+			<result name="importDepartmentExcel">/admin/Suc.jsp</result>
+			<result name="importUserExcel">/admin/Suc.jsp</result>
+			<result name="importCurriculumExcel">/admin/Suc.jsp</result>
+			<result name="importNatureOfCourseExcel">/admin/Suc.jsp</result>
+			<result name="importProfessionalExcel">/admin/Suc.jsp</result>
+			<result name="importScoreThresholdExcel">/admin/Suc.jsp</result>
+			<result name="importExperimentExcel">/admin/Suc.jsp</result>
+			<result name="importExperimenterExcel">/admin/Suc.jsp</result>
+
+			<result name="tomainPage">main.jsp</result>
+			<result name="totjdlPage">/admin/tjdl.jsp</result>
+			<result name="todlzhPage">/admin/dlzh.jsp</result>
+
+			<result name="addsuc">/admin/adminSuccess.jsp</result>
+			<result name="adderr">/admin/adminSuccess.jsp</result>
+			<result name="deluser">/admin/adminSuccess.jsp</result>
+
+			<result name="tobjdlPage">/admin/bjdl.jsp</result>
+			<result name="updateuser">/admin/adminSuccess.jsp</result>
+			<result name="toxxglPage">/admin/xxgl.jsp</result>
+			<result name="totjxxPage">/admin/tjxx.jsp</result>
+			<result name="toeasyuser">/admin/adminSuccess.jsp</result>
+			<result name="toshcooladmin">/admin/adminSuccess.jsp</result>
+			<result name="toxyglPage">/admin/xygl.jsp</result>
+			<result name="initpwd">/admin/adminSuccess.jsp</result>
+
+			<result name="tosyszrglPage">/admin/syszrgl.jsp</result>
+			<result name="toeasyexperimentAdmin">/admin/adminSuccess.jsp</result>
+			<result name="totjsyszrPage">/admin/tjsyszr.jsp</result>
+			<result name="toexperimentadmin">/admin/adminSuccess.jsp</result>
+			<result name="tosysrzAdmin">/admin/sysrz_Admin.jsp</result>
+
+
+			<result name="tosyyglPage">/admin/syygl.jsp</result>
+			<result name="toeasyexperimenter">/admin/adminSuccess.jsp</result>
+			<result name="totjsyyPage">/admin/tjsyy.jsp</result>
+			<result name="toexperimenter">/admin/adminSuccess.jsp</result>
+
+			<result name="totjxyPage">/admin/tjxy.jsp</result>
+			<result name="tocollegeadmin">/admin/adminSuccess.jsp</result>
+			<result name="toxglPage">/admin/xgl.jsp</result>
+			<result name="totjxPage">/admin/tjx.jsp</result>
+			<result name="todepartmentadmin">/admin/adminSuccess.jsp</result>
+
+			<result name="togetInPage">/getIn.jsp</result>
+
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="college_*" class="collegeAction" method="{1}">
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="department_*" class="departmentAction"
+			method="{1}">
+			<result name="deleteDepartment_success">/admin/adminSuccess.jsp</result>
+			<result name="deleteDepartment_failure">/admin/adminError.jsp</result>
+			<result name="toaddProPage">/admin/pywh/addPro.jsp</result>
+			<result name="addPro_success">/admin/adminSuccess.jsp</result>
+			<result name="addPro_failure">/admin/adminError.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="curriculum_*" class="curriculumAction"
+			method="{1}">
+			<result name="findcurriculum">/admin/kck.jsp</result>
+			<result name="tokcxxPage">/admin/pywh/kcxx.jsp</result>
+			<result name="tokbjPage">/admin/pywh/kbj.jsp</result>
+			<result name="tokcaddPage">/admin/pywh/kcadd.jsp</result>
+			<result name="addcurriculum">/admin/adminSuccess.jsp</result>
+			<result name="tokcupdatePage">/admin/pywh/kcadd.jsp</result>
+			<result name="tokcdelPage">/admin/adminSuccess.jsp</result>
+			<result name="tokcupdateaddPage">/admin/pywh/kcadd.jsp</result>
+			<result name="tokcfpPage">/admin/pywh/kcfp.jsp</result>
+			<result name="toTheoLesPage">/admin/syllabus/TheoLes.jsp</result>
+			<result name="toPracLesPage">/admin/syllabus/PracLes.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+
+		<action name="natureOfCourse_*" class="natureOfCourseAction"
+			method="{1}">
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="professional_*" class="professionalAction"
+			method="{1}">
+			<result name="toaddProDirPage">/admin/pywh/addProDir.jsp</result>
+			<result name="deleteProfessional">/admin/adminSuccess.jsp</result>
+			<result name="addProDir_success">/admin/adminSuccess.jsp</result>
+			<result name="addProDir_failure">/admin/adminError.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="notice_*" class="noticeAction" method="{1}">
+			<result name="totzfbPage">/admin/tzfb.jsp</result>
+			<result name="totjxwPage">/admin/tjxw.jsp</result>
+			<result name="addnotice" type="redirectAction">notice_totzfbPage.action
+			</result>
+			<result name="shownotice">/admin/llxx.jsp</result>
+			<result name="changenotice">/admin/bjxw.jsp</result>
+			<result name="updatenotice" type="redirectAction">notice_totzfbPage.action
+			</result>
+			<result name="delnotice" type="redirectAction">notice_totzfbPage.action
+			</result>
+			<result name="tochecktzfbPage">/admin/checktzfb.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="noticeFile_*" class="noticeFileAction"
+			method="{1}">
+			<result name="tozyxzPage">/admin/zyxz.jsp</result>
+			<result name="addnoticeFile" type="redirectAction">noticeFile_tozyxzPage.action
+			</result>
+			<result name="delnoticeFile" type="redirectAction">noticeFile_tozyxzPage.action
+			</result>
+			<result name="input">/admin/inputerror.jsp</result>
+			<result name="tocheckzyxzPage">/admin/checkzyxz.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="ppTrainingConcept_*"
+			class="ppTrainingConceptAction" method="{1}">
+			<result name="tozypyPage">/admin/pywh/zypy.jsp</result>
+			<result name="tobjzyPage">/admin/pywh/bjzy.jsp</result>
+			<result name="updateppTrainingConcept">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="ptBasicInformation_*"
+			class="ptBasicInformationAction" method="{1}">
+			<result name="topyxxPage">/admin/pywh/pyxx.jsp</result>
+			<result name="tobjpyPage">/admin/pywh/bjpy.jsp</result>
+			<result name="updateptBasicInformation">/admin/pywh/bynl.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="ability_*" class="abilityAction" method="{1}">
+			<result name="updateability">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="topology_*" class="topologyAction" method="{1}">
+			<interceptor-ref name="defaultStack">
+				<param name="fileUpload.allowedExtensions">.jpg,.png,.bmp</param>
+				<param name="fileUpload.maximumSize">1048576</param>
+			</interceptor-ref>
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="tozgkpPage">/admin/pywh/zgkp.jsp</result>
+			<result name="toViewTopologyPage">/admin/pywh/ViewTopology.jsp</result>
+			<result name="ViewTopologytwo">/admin/pywh/ViewTopologyTwo.jsp</result>
+			<result name="ViewTopologythree">/admin/pywh/ViewTopologythree.jsp</result>
+			<result name="tochancetagPage">/admin/pywh/chancetag.jsp</result>
+			<result name="input">/admin/topoinputerror.jsp</result>
+			<result name="addtopology">/admin/adminSuccess.jsp</result>
+			<result name="updatetopology">/admin/adminSuccess.jsp</result>
+			<result name="addupdatetopology">/admin/adminSuccess.jsp</result>
+			<result name="ontopology">admin/pywh/ontopology.jsp</result>
+			<result name="findtopo">/admin/pywh/ViewTopologythree.jsp</result>
+		</action>
+		<action name="analysis_*" class="analysisAction" method="{1}">
+			<result name="tobyyqPage">/admin/pywh/bjby.jsp</result>
+			<result name="tobjbyPage">/admin/pywh/checkbjby.jsp</result>
+			<result name="noAbility">/admin/adminError.jsp</result>
+			<result name="tobyyq">/admin/pywh/byyq.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="link_*" class="linkAction" method="{1}">
+			<result name="success" type="json" />
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="mainTainOfPT_*" class="mainTainOfPTAction"
+			method="{1}">
+			<result name="tochancetagPage">/admin/pywh/bjap_chancetag.jsp</result>
+			<result name="tobjapPage">/admin/pywh/bjap.jsp</result>
+			<result name="bjap_havaProOne">/admin/pywh/bjap_havaProOne.jsp</result>
+			<result name="bjap_changePro">/admin/pywh/bjap_havaProMoreChangePro.jsp
+			</result>
+			<result name="bjap_havaProMore">/admin/pywh/bjap_havaProMore.jsp</result>
+			<result name="tobjapNew">/admin/pywh/bjap_havaProMoreNew.jsp</result>
+			<result name="tobjapPageerr">/admin/adminError.jsp</result>
+			<result name="updatemainTainOfPT">/admin/adminSuccess.jsp</result>
+			<result name="topyapPage">/admin/pywh/pyap.jsp</result>
+			<result name="checkbjapPage">/admin/pywh/checkbjap.jsp</result>
+			<result name="checkbjapPage_More">/admin/pywh/checkbjap_More.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="trainingEvents_*" class="trainingEventsAction"
+			method="{1}">
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+
+		<!-- 课程业务 -->
+		<action name="theoreticalPlan_*" class="theoreticalPlanAction"
+			method="{1}">
+			<result name="tollkPage">/admin/pywh/llk.jsp</result>
+			<result name="llkResult">/admin/pywh/llk.jsp</result>
+			<result name="totjllkPage">/admin/pywh/tjllk.jsp</result>
+			<result name="tjllkResult">/admin/pywh/tjllk.jsp</result>
+			<result name="delllk">/admin/adminSuccess.jsp</result>
+			<result name="tobjllkPage">/admin/pywh/bjllk.jsp</result>
+			<result name="llkUpdateResult">/admin/adminSuccess.jsp</result>
+			<result name="todepartment">/admin/pywh/todepartment.jsp</result>
+			<result name="gogivedepartment">/admin/pywh/kctodepartment.jsp</result>
+			<result name="goupdatedepartment">/admin/adminSuccess.jsp</result>
+			<result name="tousercollege">/admin/pywh/tousercollege.jsp</result>
+			<result name="tousercollege_department">/admin/pywh/tousercollege_department.jsp</result>
+			<result name="kctousercollege">/admin/pywh/kctousercollege.jsp</result><!-- 院里的老师直接分配开课老师 -->
+			<result name="touserdepartment">/admin/pywh/touserdepartment.jsp</result><!--系里的老师分给开课老师 -->
+			<result name="kctouserpagedepartment">/admin/pywh/kctouserdepartment.jsp</result>
+			<result name="tokctouser">/admin/adminSuccess.jsp</result>
+			<result name="kctouserbydepart">/admin/adminSuccess.jsp</result>
+			<result name="tokcfpPage">/admin/pywh/kcfp.jsp</result>
+			<result name="toExportPlanPage">/admin/pywh/exportplan.jsp</result>
+
+			<!-- 分配课内实验给专业 -->
+			<result name="toExpdepart">/admin/pywh/toExpdepart.jsp</result>
+			<result name="gogiveExpdepart">/admin/pywh/gogiveExpdepart.jsp</result>
+			<result name="goupdateExpdepart">/admin/adminSuccess.jsp</result>
+
+			<!-- 系管理分配课内实验给老师 -->
+			<result name="toExpteacher">/admin/pywh/toExpteacher.jsp</result>
+			<result name="gogiveCteacher">/admin/pywh/gogiveCteacher.jsp</result>
+			<result name="kctoteacherbydepart">/admin/adminSuccess.jsp</result>
+
+			<!-- 分配课内实验给老师 -->
+			<result name="toExpuser">/admin/pywh/toExpuser.jsp</result>
+			<result name="gogiveuser">/admin/pywh/gogiveuser.jsp</result>
+			<result name="tokctouser1">/admin/adminSuccess.jsp</result>
+
+			<interceptor-ref name="myStack"></interceptor-ref>
+
+			<result name="toCheckTheoLes">/admin/syllabus/CheckTheoLes.jsp</result>
+			<result name="toTheoLesPage1">/admin/syllabus/TheoLes.jsp</result>
+			<result name="toTheoLesPage_Copy">/admin/syllabus/TheoLes.jsp</result>
+			<result name="deleteTheoSyllabus">/admin/adminSuccess.jsp</result>
+			<result name="toCheckTheoLesAdmin">/admin/syllabus/CheckTheoLes_Admin.jsp</result>
+			<result name="toCheckTheoLesAdmin1">/admin/syllabus/CheckTheoLes_Admin1.jsp</result>
+
+			<result name="toCheckTheoLesInnerExperiment">/admin/syllabus/CheckTheoLes_InnerExperiment.jsp
+			</result>
+			<result name="toTheoLesPageInnerExperiment">/admin/syllabus/TheoLes_InnerExperiment.jsp
+			</result>
+			<result name="toTheoLesPageCopyInnerExperiment">/admin/syllabus/TheoLes_InnerExperiment.jsp
+			</result>
+			<result name="toupdateTheoLesPageInnerExperiment">/admin/syllabus/TheoLes_InnerExperiment.jsp
+			</result>
+			<result name="deleteTheoSyllabusInnerExperiment">/admin/adminSuccess.jsp</result>
+			<result name="toCheckTheoLesInnerExperimentAdmin">/admin/syllabus/CheckTheoLes_InnerExperiment_Admin.jsp
+			</result>
+			<result name="toCheckTheoLesInnerExperimentAdmin1">/admin/syllabus/CheckTheoLes_InnerExperiment_Admin1.jsp
+			</result>
+
+
+			<result name="a_key_distribution1">/admin/adminSuccess.jsp</result>
+
+			<result name="toerrorPage">/admin/adminError.jsp</result>
+
+
+			<result name="toExpdepartmentPage">/admin/pywh/toExpdepartment.jsp</result>
+			<result name="gogiveExpdepartment">/admin/pywh/Expkctodepartment.jsp</result>
+			<result name="goupdateExpdepartment">/admin/adminSuccess.jsp</result>
+			<result name="toExpusercollegePage">/admin/pywh/toExpusercollege.jsp</result>
+			<result name="expkctousercollege">/admin/pywh/Expkctousercollege.jsp</result>
+			<result name="expkctouser">/admin/adminSuccess.jsp</result>
+			<result name="exptouserdepartment">/admin/pywh/toExpuserdepartment.jsp</result>
+			<result name="expkctouserdepartment">/admin/pywh/Expkctouserdepartment.jsp</result>
+			<result name="updeatexpkctouserdepartment">/admin/adminSuccess.jsp</result>
+
+			<result name="toLoadPage">admin/syllabus/Theoload1.jsp</result>
+
+		</action>
+		<action name="practicePlan_*" class="practicePlanAction"
+			method="{1}">
+			<!-- 分配实践课到实验室 -->
+			<result name="prctoExpdepartment">/admin/pywh/prctoExpdepartment.jsp</result>
+			<result name="prcgogivedepartment">/admin/pywh/prcgogivedepartment.jsp</result>
+			<result name="prcgoupdateExpdepartment">/admin/adminSuccess.jsp</result>
+
+			<!-- 实验室主任分配实践课到实验员 李艳李婧 2018-07-29 -->
+			<result name="prctoExpuser">/admin/pywh/prctoExpuser.jsp</result>
+			<result name="protoexpkctouser">/admin/pywh/protoexpkctouser.jsp</result>
+			<result name="proexpkctouser1">/admin/adminSuccess.jsp</result>
+
+			<!-- 新增 -->
+			<!-- 分配实践课到实验员 -->
+			<result name="prctoExpusercollege">/admin/pywh/prctoExpusercollege.jsp</result>
+			<result name="proexpkctousercollege">/admin/pywh/proexpkctousercollege.jsp</result>
+			<result name="proexpkctouser">/admin/adminSuccess.jsp</result>
+			<result name="tojzsjkPage">/admin/pywh/jzsjk.jsp</result>
+			<result name="jzsjkResult">/admin/pywh/jzsjk.jsp</result>
+			<result name="totjsjkPage">/admin/pywh/tjsjk.jsp</result>
+			<result name="tjsjkResult">/admin/pywh/tjsjk.jsp</result>
+			<result name="delsjk">/admin/adminSuccess.jsp</result>
+			<result name="tobjsjkPage">/admin/pywh/bjsjk.jsp</result>
+			<result name="sjkUpdateResult">/admin/adminSuccess.jsp</result>
+			<result name="toPracLesPage">/admin/syllabus/PracLes.jsp</result>
+
+			<result name="toCheckPracLes_FieldWorkPage">/admin/syllabus/CheckPracLes_FieldWork.jsp
+			</result>
+
+
+			<result name="toCheckPracticeOther">/admin/syllabus/CheckTheoLes_Other.jsp</result>
+
+			<result name="toPracLes_FieldWorkPage">/admin/syllabus/PracLes_FieldWork.jsp</result>
+			<result name="toHavePracLesFieldWorkPage">/admin/syllabus/PracLes_FieldWork.jsp</result>
+			<result name="toPracLesFieldWorkPageCopy">/admin/syllabus/PracLes_FieldWork.jsp</result>
+			<result name="deletePracSyllabusFieldWork">/admin/adminSuccess.jsp</result>
+			<result name="toCheckPracLesFieldWorkPageAdmin">/admin/syllabus/CheckPracLes_FieldWork_Admin.jsp
+			</result>
+
+			<result name="toCheckPracLesFieldWorkPageAdmin1">/admin/syllabus/CheckPracLes_FieldWork_Admin1.jsp
+			</result>
+
+			<result name="toCheckPracLesCourseDesignPage">/admin/syllabus/CheckPracLes_CourseDesign.jsp
+			</result>
+			<result name="toPracLesCourseDesignPage">/admin/syllabus/PracLes_CourseDesign.jsp</result>
+			<result name="toHavePracLesCourseDesignPage">/admin/syllabus/PracLes_CourseDesign.jsp</result>
+			<result name="toPracLesCourseDesignPageCopy">/admin/syllabus/PracLes_CourseDesign.jsp</result>
+			<result name="deletePracSyllabusCourseDesign">/admin/adminSuccess.jsp</result>
+			<result name="toCheckCourseDesignPageAdmin">/admin/syllabus/CheckPracLes_CourseDesign_Admin.jsp
+			</result>
+
+			<result name="toCheckCourseDesignPageAdmin1">/admin/syllabus/CheckPracLes_CourseDesign_Admin1.jsp
+			</result>
+
+			<result name="toCheckPracLesInnerExperimentPage">/admin/syllabus/CheckPracLes_InnerExperiment.jsp
+			</result>
+
+			<result name="toCheckPracLesInnerExperimentPage1">/admin/syllabus/CheckPracLes_InnerExperiment1.jsp
+			</result>
+
+			<result name="toPracLesInnerExperimentPage">/admin/syllabus/PracLes_InnerExperiment.jsp
+			</result>
+			<result name="toHavePracLesInnerExperimentPage">/admin/syllabus/PracLes_InnerExperiment.jsp
+			</result>
+			<result name="toPracLesInnerExperimentPageCopy">/admin/syllabus/PracLes_InnerExperiment.jsp
+			</result>
+			<result name="deletePracSyllabusInnerExperiment">/admin/adminSuccess.jsp</result>
+			<result name="toCheckInnerExperimentPageAdmin">/admin/syllabus/CheckPracLes_InnerExperiment_Admin.jsp
+			</result>
+			<result name="toCheckInnerExperimentPageAdmin1">/admin/syllabus/CheckPracLes_InnerExperiment_Admin1.jsp
+			</result>
+			<result name="toCheckPracLesGraduationProjectPage">/admin/syllabus/CheckPracLes_GraduationProject.jsp
+			</result>
+			<result name="toPracLesGraduationProjectPage">/admin/syllabus/PracLes_GraduationProject.jsp
+			</result>
+			<result name="toHavePracLesGraduationProjectPage">/admin/syllabus/PracLes_GraduationProject.jsp
+			</result>
+			<result name="toPracLesGraduationProjectPageCopy">/admin/syllabus/PracLes_GraduationProject.jsp
+			</result>
+			<result name="deletePracSyllabusGraduationProject">/admin/adminSuccess.jsp</result>
+			<result name="toCheckGraduationProjectPageAdmin">/admin/syllabus/CheckPracLes_GraduationProject_Admin.jsp
+			</result>
+			<result name="toCheckGraduationProjectPageAdmin1">/admin/syllabus/CheckPracLes_GraduationProject_Admin1.jsp
+			</result>
+			<result name="prctodepartment">/admin/pywh/prctodepartment.jsp</result>
+			<result name="gogivedepartment">/admin/pywh/prckctodepartment.jsp</result>
+			<result name="goupdatedepartment">/admin/adminSuccess.jsp</result>
+			<result name="prctousercollege">/admin/pywh/prctousercollege.jsp</result>
+			<result name="prctousercollege_department">/admin/pywh/prctousercollege_department.jsp
+			</result>
+			<result name="kctousercollege">/admin/pywh/prckctousercollege.jsp</result>
+			<result name="kctouser">/admin/adminSuccess.jsp</result>
+			<result name="touserdepartment">/admin/pywh/prctouserdepartment.jsp</result>
+			<result name="kctouserpagedepartment">/admin/pywh/prckctouserdepartment.jsp</result>
+			<result name="kctouserbydepart">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="prctokcfpPage">/admin/pywh/prckcfp.jsp</result>
+
+			<result name="a_key_distribution2">/admin/adminSuccess.jsp</result>
+
+			<result name="toerrorPage">/admin/adminError.jsp</result>
+
+			<result name="toCheckOtherPageAdmin">/admin/syllabus/CheckTheoLes_OtherAdmin.jsp
+			</result>
+			<result name="toCheckOtherPageAdmin1">/admin/syllabus/CheckTheoLes_OtherAdmin1.jsp
+			</result>
+			<result name="toPracLesOtherPage">/admin/syllabus/TheoLes_Other.jsp</result>
+			<result name="toHavePracLesOtherPage">/admin/syllabus/TheoLes_Other.jsp</result>
+			<result name="deletePracSyllabusOther">/admin/adminSuccess.jsp</result>
+			<result name="toPracLesOtherPageCopy">/admin/syllabus/TheoLes_Other.jsp</result>
+		</action>
+		<action name="errorDisc_*" class="errorDiscAction" method="{1}">
+			<result name="toproIncoPage">/admin/ErrorDisc/ProInco.jsp</result>
+			<result name="toavePerPage">/admin/ErrorDisc/AvePer.jsp</result>
+			<result name="tokeyCouEmptyPage">/admin/ErrorDisc/KeyCouEmpty.jsp</result>
+			<result name="tocreditEmptyPage">/admin/ErrorDisc/CreditEmpty.jsp</result>
+			<result name="topreCreErrPage">/admin/ErrorDisc/PreCreErr.jsp</result>
+			<result name="tototalCrePage">/admin/ErrorDisc/TotalCre.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="baseTheo_*" class="baseTheoAction" method="{1}">
+			<result name="toBaseTheoPage">/admin/syllabus/BaseTheo.jsp</result>
+			<result name="toBefourAimTheoPage">/admin/syllabus/BefourAimTheo.jsp</result>
+			<result name="updateAimTheo">/admin/syllabus/AimTheo.jsp</result>
+			<result name="toBefourAimGraPage">/admin/syllabus/BefourAimGra.jsp</result>
+			<result name="toBefourAimPracticePage">/admin/syllabus/BefourAimPractice.jsp</result>
+			<result name="toBaseCouDesPage">/admin/syllabus/BaseCouDes.jsp</result>
+			<result name="toBefourAimCouDesPage">/admin/syllabus/BefourAimCouDes.jsp</result>
+			<result name="toContentCouDesPage">/admin/syllabus/ContentCouDes.jsp</result>
+			<result name="toMateriaCouDesPage">/admin/syllabus/MateriaCouDes.jsp</result>
+			<result name="toBaseExpPage">/admin/syllabus/BaseExp.jsp</result>
+			<result name="toBefourAimExpPage">/admin/syllabus/BefourAimExp.jsp</result>
+			<result name="toContentExpPage">/admin/syllabus/ContentExp.jsp</result>
+			<result name="toLaborInstruPage">/admin/syllabus/LaborInstru.jsp</result>
+			<result name="toMateriaExpPage">/admin/syllabus/MateriaExp.jsp</result>
+			<result name="toAimGraPage">/admin/syllabus/AimGra.jsp</result>
+
+			<result name="tobjjzPage">/admin/pywh/bjjz.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+
+		<action name="teaMethodTheo_*" class="teaMethodTheoAction"
+			method="{1}">
+			<result name="toTeaMethodTheopage">/admin/syllabus/TeaMethodTheo.jsp</result>
+			<result name="updateTeaMethodTheo">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="ContentTheo_*" class="contentTheoAction"
+			method="{1}">
+			<result name="updatacontentTheo">/admin/syllabus/ContentTheo.jsp
+			</result>
+			<result name="addcontentTheo">/admin/syllabus/ContentTheo.jsp
+			</result>
+			<result name="toContentTheoPage">/admin/syllabus/ContentTheo.jsp</result>
+			<result name="deletecontenTheo">/admin/syllabus/ContentTheo.jsp</result>
+			<result name="updateTeaMethodTheo">/admin/success.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="TextBooks_*" class="textBooksAction" method="{1}">
+			<result name="toMateriaTheoPage">/admin/syllabus/MateriaTheo.jsp</result>
+			<result name="addtextBooks">/admin/syllabus/MateriaTheo.jsp</result>
+			<result name="updatetextBooks">/admin/syllabus/MateriaTheo.jsp</result>
+			<result name="deletetextBooks">/admin/syllabus/MateriaTheo.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="ExperimentContent_*"
+			class="experimentContentAction" method="{1}">
+			<result name="toEditTestPage">/admin/syllabus/EditTest.jsp</result>
+			<result name="addExperimentContent">/admin/syllabus/EditTest.jsp</result>
+			<result name="updataExperimentContent">/admin/syllabus/EditTest.jsp</result>
+			<result name="deleteExperimentContent">/admin/syllabus/EditTest.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="DiscussContent_*" class="discussContentAction"
+			method="{1}">
+			<result name="toEditDiscussPage">/admin/syllabus/EditDiscuss.jsp</result>
+			<result name="adddiscussContent">/admin/syllabus/EditDiscuss.jsp</result>
+			<result name="updatediscussContent">/admin/syllabus/EditDiscuss.jsp</result>
+			<result name="deletediscussContent">/admin/syllabus/EditDiscuss.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="ThreeProject_*" class="threeProjectAction"
+			method="{1}">
+			<result name="toEditThreePage">/admin/syllabus/EditThree.jsp</result>
+			<result name="addThreeProject">/admin/syllabus/EditThree.jsp</result>
+			<result name="updateThreeProject">/admin/syllabus/EditThree.jsp</result>
+			<result name="deleteThreeProject">/admin/syllabus/EditThree.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="OtherContent_*" class="otherContentAction"
+			method="{1}">
+			<result name="toEditOtherPage">/admin/syllabus/EditOther.jsp</result>
+			<result name="addOtherContent">/admin/syllabus/EditOther.jsp</result>
+			<result name="updateOtherContent">/admin/syllabus/EditOther.jsp</result>
+			<result name="deleteOtherContent">/admin/syllabus/EditOther.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="BasePractice_*" class="basePracticetAction"
+			method="{1}">
+			<result name="toBaseGraPage">/admin/syllabus/BaseGra.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="PracticeBook_*" class="practiceBookAction"
+			method="{1}">
+			<result name="toMateriaGraPage">/admin/syllabus/MateriaGra.jsp</result>
+			<result name="addpracticeBook">/admin/syllabus/MateriaGra.jsp</result>
+			<result name="updatepracticeBook">/admin/syllabus/MateriaGra.jsp</result>
+			<result name="deletepracticeBook">/admin/syllabus/MateriaGra.jsp</result>
+			<result name="toMateriaCouDesPage">/admin/syllabus/MateriaCouDes.jsp</result>
+			<result name="addCourseBooks">/admin/syllabus/MateriaCouDes.jsp</result>
+			<result name="updateCourseBooks">/admin/syllabus/MateriaCouDes.jsp</result>
+			<result name="deleteCourseBooks">/admin/syllabus/MateriaCouDes.jsp</result>
+			<result name="toMateriaExpPage">/admin/syllabus/MateriaExp.jsp</result>
+			<result name="addexperimentBooks">/admin/syllabus/MateriaExp.jsp</result>
+			<result name="updateexperimentBooks">/admin/syllabus/MateriaExp.jsp</result>
+			<result name="deleteexperimentBooks">/admin/syllabus/MateriaExp.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="ContentGra_*" class="contentGraAction"
+			method="{1}">
+			<result name="toContentGraPage">/admin/syllabus/ContentGra.jsp</result>
+			<result name="updateContentGra">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="FieldWork_*" class="fieldWorkAction" method="{1}">
+			<result name="toBasePracticePage">/admin/syllabus/BasePractice.jsp</result>
+			<result name="updateFieldWork">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="FieldContent_*" class="fieldContetnAction"
+			method="{1}">
+			<result name="toContentPracticePage">/admin/syllabus/ContentPractice.jsp</result>
+			<result name="updateFieldContent">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="BaseCourseDesign_*"
+			class="baseCourseDesignAction" method="{1}">
+			<result name="toBaseCouDesPage">/admin/syllabus/BaseCouDes.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="ConCourseDesign_*" class="conCourseDesignAction"
+			method="{1}">
+			<result name="toContentCouDesPage">/admin/syllabus/ContentCouDes.jsp</result>
+			<result name="updateConCourseDesign">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="WayCourseDesign_*" class="wayCourseDesignAction"
+			method="{1}">
+			<result name="toTeaMethodCouDesPage">/admin/syllabus/TeaMethodCouDes.jsp</result>
+			<result name="updateWayCourseDesign">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="BaseExperiment_*" class="baseExperimentAction"
+			method="{1}">
+			<result name="toBaseExpPage">/admin/syllabus/BaseExp.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="ExpermentProject_*"
+			class="expermentProjectAction" method="{1}">
+			<result name="toContentExpPage">/admin/syllabus/ContentExp.jsp</result>
+			<result name="addExpermentProject">/admin/syllabus/ContentExp.jsp</result>
+			<result name="updateExpermentProject">/admin/syllabus/ContentExp.jsp</result>
+			<result name="deleteExpermentProject">/admin/syllabus/ContentExp.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="exportword_*" class="ptBasicInformationAction"
+			method="{1}">
+			<result name="down_professionPlan">/admin/downword_error.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="teachCal_*" class="teachCalAction" method="{1}">
+			<result name="toTeachCalPage">/admin/TeCal/TeachCal.jsp</result>
+			<result name="addteachCal">/admin/adminSuccess.jsp</result>
+			<result name="delTeachCalPage">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="curriculumMatrix_*"
+			class="curriculumMatrixAction" method="{1}">
+			<result name="tobjjzpage">/admin/pywh/bjjz.jsp</result>
+			<result name="update">/admin/adminSuccess.jsp</result>
+			<result name="tozyjzpage">/admin/pywh/zyjz.jsp</result>
+			<result name="notobjjzpage">/admin/adminError.jsp</result>
+			<result name="modifyCurriculum">/admin/pywh/bjrz.jsp</result>
+			<result name="modifyDetermine">/admin/adminSuccess.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="scoreThreshold_*" class="scoreThresholdAction"
+			method="{1}">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="setTotalCredit">/admin/adminSuccess.jsp</result>
+			<result name="setAvePerThreshold">/admin/adminSuccess.jsp</result>
+		</action>
+
+		<action name="TrainingAnother_*" class="trainingAnotherAction"
+			method="{1}">
+			<result name="toanotherPage">/admin/pywh/another.jsp</result>
+			<result name="updataanother">/admin/adminSuccess.jsp</result>
+			<result name="toanother">/admin/pywh/kwap.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="abilityAndTeachObj_*"
+			class="abilityAndTeachObjAction" method="{1}">
+			<result name="toBefourAimTheoPage">/admin/syllabus/BefourAimTheo.jsp</result>
+			<result name="toAimTheoPage">/admin/syllabus/AimTheo.jsp</result>
+			<result name="noIntoAim">/admin/adminError.jsp</result>
+
+			<result name="toBefourAimFieldWorkPage">/admin/syllabus/BefourAimPrac_FieldWork.jsp
+			</result>
+			<result name="toAimFieldWorkPage">/admin/syllabus/AimPrac_FieldWork.jsp</result>
+
+
+			<result name="toBefourAimCourseDesignPage">/admin/syllabus/BefourAimPrac_CourseDesign.jsp
+			</result>
+			<result name="toAimCourseDesignPage">/admin/syllabus/AimPrac_CourseDesign.jsp</result>
+			<result name="toBefourAimInnerExperimentPage">/admin/syllabus/BefourAimPrac_InnerExperiment.jsp
+			</result>
+			<result name="toAimInnerExperimentPage">/admin/syllabus/AimPrac_InnerExperiment.jsp
+			</result>
+			<result name="toBefourAimGraduationProjectPage">/admin/syllabus/BefourAimPrac_GraduationProject.jsp
+			</result>
+			<result name="toAimGraduationProjectPage">/admin/syllabus/AimPrac_GraduationProject.jsp
+			</result>
+
+			<result name="toBefourAimTheoPageInnerExperiment">/admin/syllabus/BefourAimTheo_InnerExperiment.jsp
+			</result>
+			<result name="toAimTheoPageInnerExperiment">/admin/syllabus/AimTheo_InnerExperiment.jsp
+			</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+
+		</action>
+		<action name="teachObj_*" class="teachObjAction" method="{1}">
+			<result name="toBefourAimTheoPage">/admin/syllabus/BefourAimTheo.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+		<action name="ExportWork_*" class="exportWordAction"
+			method="{1}">
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+
+		<action name="practiceBookCourseDesign_*"
+			class="practiceBook_CourseDesignAction" method="{1}">
+			<result name="toMateriaCouDesPage">/admin/syllabus/MateriaCouDes.jsp</result>
+			<result name="addCourseBooks">/admin/syllabus/MateriaCouDes.jsp</result>
+			<result name="updateCourseBooks">/admin/syllabus/MateriaCouDes.jsp</result>
+			<result name="deleteCourseBooks">/admin/syllabus/MateriaCouDes.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+
+		<action name="PracticeBookInnerExperiment_*"
+			class="practiceBooks_InnerExperimentAction" method="{1}">
+			<result name="toMateriaExpPage">/admin/syllabus/MateriaExp.jsp</result>
+			<result name="addexperimentBooks">/admin/syllabus/MateriaExp.jsp</result>
+			<result name="updateexperimentBooks">/admin/syllabus/MateriaExp.jsp</result>
+			<result name="deleteexperimentBooks">/admin/syllabus/MateriaExp.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="ExpermentProjectInnerExperiment_*"
+			class="expermentProject_InnerExperimentAction" method="{1}">
+			<result name="toTheoInnerExperimentPage">/admin/syllabus/BaseExpTheo_InnerExperiment.jsp
+			</result>
+			<result name="toTheoContentExpPage">/admin/syllabus/ContentExp_TheoInnerExperiment.jsp
+			</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="TextBooksInnerExperimentAction_*"
+			class="textBooks_InnerExperimentAction" method="{1}">
+			<result name="toTheoMateriaExpPage">/admin/syllabus/MateriaExp_TheoInnerExperiment.jsp
+			</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+
+		<action name="BaseExperimentTheoInnerExperimentAction_*"
+			class="baseExperimentTheoInnerExperiment" method="{1}">
+			<result name="toBaseTheoExpPage">/admin/syllabus/BaseExpTheo_InnerExperiment.jsp
+			</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<!-- <action name="exportcurriculumMatrixAction_*" class="exportcurriculumMatrix" 
+			method="{1}"> <result name="toBaseTheoExpPage">/admin/syllabus/BaseExpTheo_InnerExperiment.jsp</result> 
+			<interceptor-ref name="myStack"></interceptor-ref> </action> -->
+
+		<action name="exportcurriculumMatrix_*"
+			class="exportCurriculumMatrixAction" method="{1}">
+
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="experiment_*" class="experimentAction"
+			method="{1}">
+			<result name="toaddExperimentPage">/admin/pywh/addExperiment.jsp</result>
+			<result name="addExp_success">/admin/adminSuccess.jsp</result>
+			<result name="addExp_failure">/admin/adminError.jsp</result>
+			<result name="deleteExperiment_success">/admin/adminSuccess.jsp</result>
+			<result name="deleteExperiment_failure">/admin/adminError.jsp</result>
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+
+		<action name="export_*" class="exportAction" method="{1}">
+			<interceptor-ref name="myStack"></interceptor-ref>
+		</action>
+	</package>
+
+</struts>

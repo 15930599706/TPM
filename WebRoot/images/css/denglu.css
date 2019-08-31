@@ -1,0 +1,151 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+@font-face { /*声明字体  引用字体*/
+	font-family: "icomoon"; /*我们自己起名字可以*/
+	src: url('../fonts/icomoon.eot?7kkyc2');
+	src: url('../fonts/icomoon.eot?7kkyc2#iefix')
+		format('embedded-opentype'), url('../fonts/icomoon.ttf?7kkyc2')
+		format('truetype'), url('../fonts/icomoon.woff?7kkyc2') format('woff'),
+		url('../fonts/icomoon.svg?7kkyc2#icomoon') format('svg');
+	font-style: normal; /*倾斜字体正常*/
+}
+
+body {
+	height: 600px;
+	width: 1518px;
+	min-width: 1518px;
+	/*background:url(../images/wx.jpg) repeat-x;*/
+}
+
+.nav {
+	height: 80px;
+	min-width: 1518px;
+	position: fixed;
+}
+
+.nav a {
+	font-size: 16px;
+	display: block;
+	height: 33px;
+	line-height: 33px;
+	color: #fa911e;
+	/*background:url(../images/ao.png) no-repeat;*/
+	padding-left: 15px;
+	text-decoration: none;
+	margin: 0 15px;
+}
+
+li {
+	margin-top: 20px;
+	list-style-type: none;
+	float: right;
+}
+
+.za, .fh {
+	border: 3px solid #ccc;
+	border-radius: 20px;
+}
+
+.za:hover, .fh:hover {
+	border: 3px solid #fa911e;
+	background-color: #fa911e;
+	color: #fff;;
+}
+
+.nav .za {
+	margin-right: 150px;
+}
+
+span {
+	display: inline-block;
+	/*background:url(../images/ao.png) no-repeat right;*/
+	padding-right: 15px;
+}
+
+a:hover, a:hover span {
+	/*background-image:url(../images/to.png)*/
+	
+}
+
+.zhuti {
+	padding-top: 100px;
+	height: 715px;
+}
+
+.denglukuang {
+	width: 22%;
+	height: 442px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border: 3px solid #ccc;
+	border-radius: 5%;
+	padding: 25px 54px;
+	margin: 50px auto 0 auto;
+	/* float:right;
+	margin:50px 200px 0 0; */
+}
+
+.denglukuang:hover {
+	border: 3px solid #fa911e;
+}
+
+h2 {
+	font-size: 25px;
+	color: #fa911e;
+	margin-bottom: 42px;
+}
+
+.zh, .mm {
+	font-family: "icomoon";
+	font-size: 20px;
+	width: 300px;
+	height: 47px;
+	margin-bottom: 42px;
+	padding-left: 26px;
+}
+
+.zh {
+	background: url(../images/zh.png) no-repeat left;
+}
+
+.mm {
+	background: url(../images/mm.png) no-repeat left;
+}
+
+.yhlb {
+	text-align: center;
+	color: #fa911e;
+	margin-bottom: 42px;
+}
+
+.yhlb input {
+	margin-right: 30px;
+}
+
+.an {
+	width: 98%;
+	height: 47px;
+	line-height: 47px;
+	font-size: 20px;
+	text-align: center;
+	color: #fa911e;
+	border: 1px solid #fa911e;
+	border-radius: 20px;
+	margin-bottom: 20px;
+}
+
+.an:hover {
+	background-color: #fa911e;
+	color: #fff;
+}
+
+.denglukuang p, .zc {
+	float: left;
+	margin-left: 50px;
+}
+
+.zc:hover {
+	background-color: rgba(fa, 91, 1e, 0.5);
+}

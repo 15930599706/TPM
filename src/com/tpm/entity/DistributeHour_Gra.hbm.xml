@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.DistributeHour_Gra"
+		table="实践课毕业设计大纲学时分配表">
+		<id name="distributeHour_Graid" column="学时分配ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="name" column="工作内容"></property>
+		<property name="time" column="时间"></property>
+		<property name="syllabusid" column="理论课大纲ID"></property>
+	</class>
+</hibernate-mapping>

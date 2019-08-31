@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.TeachObj" table="教学目标表">
+		<id name="teachObjid" column="教学目标ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="teachObjContent" column="教学目标内容"></property>
+
+		<set name="setAbilityAndTeachObj" inverse="true" cascade="delete">
+			<key column="对应教学目标"></key>
+			<one-to-many class="com.tpm.entity.AbilityAndTeachObj" />
+		</set>
+
+		<property name="syllabusID" column="大纲表ID"></property>
+	</class>
+</hibernate-mapping>

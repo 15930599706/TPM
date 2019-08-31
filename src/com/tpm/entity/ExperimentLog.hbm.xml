@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.ExperimentLog" table="实验室管理操作日志表">
+		<id name="experimentLogid" column="操作日志ID">
+			<generator class="native"></generator>
+		</id>
+		<many-to-one name="user_modify"
+			class="com.tpm.entity.User" column="修改者"></many-to-one>
+		<many-to-one name="user_modified"
+			class="com.tpm.entity.User" column="被修改者"></many-to-one>
+		<many-to-one name="experiment_before"
+			class="com.tpm.entity.Experiment" column="之前所在实验室"></many-to-one>
+		<property name="experimenterlevel_before" column="之前实验员级别"></property>
+		<many-to-one name="experiment_after"
+			class="com.tpm.entity.Experiment" column="之后所在实验室"></many-to-one>
+		<property name="experimenterlevel_after" column="之后实验员级别"></property>
+		<property name="operate" column="操作"></property>
+		<property name="time" column="操作时间"></property>
+		<property name="sign" column="操作标记"></property>
+	</class>
+</hibernate-mapping>

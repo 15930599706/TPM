@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.Ability" table="毕业生应获得的知识和能力表">
+		<id name="abilityid" column="毕业生应获得的知识和能力ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="abilityname" column="毕业生应获得的知识和能力名"></property>
+		<property name="abilitycontent" column="毕业生应获得的知识和能力内容"
+			length="1000"></property>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="对应系"></many-to-one>
+
+
+		<set name="setAnalysis" inverse="true" cascade="delete">
+			<key column="对应能力"></key>
+			<one-to-many class="com.tpm.entity.Analysis" />
+		</set>
+		<set name="setCurriculumMatrix" inverse="true" cascade="delete">
+			<key column="对应能力"></key>
+			<one-to-many class="com.tpm.entity.CurriculumMatrix" />
+		</set>
+
+		<set name="setAbilityAndTeachObj" inverse="true" cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many class="com.tpm.entity.AbilityAndTeachObj" />
+		</set>
+		<set name="setIndexSelect" inverse="true" cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many class="com.tpm.entity.IndexSelect" />
+		</set>
+
+		<set name="setAbilityAndTeachObj_TheoInnerExperiment"
+			inverse="true" cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many
+				class="com.tpm.entity.AbilityAndTeachObj_TheoInnerExperiment" />
+		</set>
+		<set name="setIndexSelect_TheoInnerExperiment" inverse="true"
+			cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many
+				class="com.tpm.entity.IndexSelect_TheoInnerExperiment" />
+		</set>
+
+		<set name="setAbilityAndTeachObj_FieldWork" inverse="true"
+			cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many
+				class="com.tpm.entity.AbilityAndTeachObj_FieldWork" />
+		</set>
+		<set name="setIndexSelect_FieldWork" inverse="true"
+			cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many class="com.tpm.entity.IndexSelect_FieldWork" />
+		</set>
+
+		<set name="setAbilityAndTeachObj_CourseDesign" inverse="true"
+			cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many
+				class="com.tpm.entity.AbilityAndTeachObj_CourseDesign" />
+		</set>
+		<set name="setIndexSelect_CourseDesign" inverse="true"
+			cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many
+				class="com.tpm.entity.IndexSelect_CourseDesign" />
+		</set>
+
+		<set name="setAbilityAndTeachObj_InnerExperiment" inverse="true"
+			cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many
+				class="com.tpm.entity.AbilityAndTeachObj_InnerExperiment" />
+		</set>
+		<set name="setIndexSelect_InnerExperiment" inverse="true"
+			cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many
+				class="com.tpm.entity.IndexSelect_InnerExperiment" />
+		</set>
+
+		<set name="setAbilityAndTeachObj_Gra" inverse="true"
+			cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many
+				class="com.tpm.entity.AbilityAndTeachObj_Gra" />
+		</set>
+		<set name="setIndexSelect_Gra" inverse="true" cascade="delete">
+			<key column="对应毕业要求"></key>
+			<one-to-many class="com.tpm.entity.IndexSelect_Gra" />
+		</set>
+	</class>
+</hibernate-mapping>

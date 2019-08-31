@@ -1,0 +1,1391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       					   http://www.springframework.org/schema/beans/spring-beans.xsd
+       					   http://www.springframework.org/schema/tx 
+       					   http://www.springframework.org/schema/tx/spring-tx.xsd
+       					   http://www.springframework.org/schema/aop 
+       					   http://www.springframework.org/schema/aop/spring-aop.xsd
+       					   http://www.springframework.org/schema/context 
+       					   http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+
+	<bean id="dataSource"
+		class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl"
+			value="jdbc:mysql://cdb-8zbdpz9k.bj.tencentcdb.com:10081/tpm?useSSL=false"></property>
+		<property name="user" value="root"></property>
+		<property name="password" value="zhang123"></property>
+		<!-- <property name="user" value="root"></property> <property name="password" 
+			value="TPM_jwc_Action@YLLLLWLYTLGZTDL"></property> -->
+		<property name="minPoolSize" value="3" />
+		<property name="maxPoolSize" value="15" />
+		<property name="initialPoolSize" value="3" />
+		<property name="maxIdleTime" value="0" />
+		<property name="acquireIncrement" value="3" />
+
+		<property name="acquireRetryAttempts" value="30" />
+		<property name="acquireRetryDelay" value="1000" />
+		<property name="testConnectionOnCheckin" value="true" />
+		<!--定义所有连接测试都执行的测试语句。在使用连接测试的情况下这个显著提高测试速度。默认null -->
+		<property name="preferredTestQuery" value="select 1" />
+		<!--每6个小时检查所有连接池中的空闲连接，这个值一定要小于MySQL的wait_timeout时间，默认为8小时。默认0 -->
+		<property name="idleConnectionTestPeriod" value="21600" />
+
+		<!-- <property name="checkoutTimeout" value="0"/> -->
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<property name="configLocations"
+			value="classpath:hibernate.cfg.xml"></property>
+	</bean>
+
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<tx:annotation-driven
+		transaction-manager="transactionManager" />
+
+
+	<bean name="loginAction" class="com.tpm.action.LoginAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<!-- user配置 -->
+	<bean name="userAction" class="com.tpm.action.UserAction"
+		scope="prototype">
+		<property name="userService" ref="userService"></property>
+		<property name="collegeService" ref="collegeService"></property>
+		<property name="departmentService" ref="departmentService"></property>
+		<property name="curriculumService" ref="curriculumService"></property>
+		<property name="natureOfCourseService"
+			ref="natureOfCourseService"></property>
+		<property name="professionalService"
+			ref="professionalService"></property>
+		<property name="noticeService" ref="noticeService"></property>
+		<property name="noticeFileService" ref="noticeFileService"></property>
+		<property name="scoreThresholdService"
+			ref="scoreThresholdService"></property>
+		<property name="experimentService" ref="experimentService"></property>
+	</bean>
+	<bean id="userService" class="com.tpm.service.UserService">
+		<property name="userDao" ref="userDaoImpl"></property>
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="avePerThresholdDao"
+			ref="avePerThresholdDaoImpl"></property>
+		<property name="experimentDao" ref="experimentDaoImpl"></property>
+		<property name="experimentLogDao" ref="experimentLogDaoImpl"></property>
+	</bean>
+	<bean id="userDaoImpl" class="com.tpm.dao.UserDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="experimentLogDaoImpl"
+		class="com.tpm.dao.ExperimentLogDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- college配置 -->
+	<bean name="collegeAction" class="com.tpm.action.CollegeAction"
+		scope="prototype">
+		<property name="collegeService" ref="collegeService"></property>
+	</bean>
+	<bean id="collegeService" class="com.tpm.service.CollegeService">
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+	</bean>
+	<bean id="collegeDaoImpl" class="com.tpm.dao.CollegeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- department配置 -->
+	<bean name="departmentAction"
+		class="com.tpm.action.DepartmentAction" scope="prototype">
+		<property name="departmentService" ref="departmentService"></property>
+	</bean>
+	<bean id="departmentService"
+		class="com.tpm.service.DepartmentService">
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="userDao" ref="userDaoImpl"></property>
+
+	</bean>
+	<bean id="departmentDaoImpl" class="com.tpm.dao.DepartmentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- natureOfCourse配置 -->
+	<bean name="natureOfCourseAction"
+		class="com.tpm.action.NatureOfCourseAction" scope="prototype">
+		<property name="natureOfCourseService"
+			ref="natureOfCourseService"></property>
+	</bean>
+	<bean id="natureOfCourseService"
+		class="com.tpm.service.NatureOfCourseService">
+		<property name="natureOfCourseDao"
+			ref="natureOfCourseDaoImpl"></property>
+	</bean>
+	<bean id="natureOfCourseDaoImpl"
+		class="com.tpm.dao.NatureOfCourseDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- curriculum配置 -->
+	<bean name="curriculumAction"
+		class="com.tpm.action.CurriculumAction" scope="prototype">
+		<property name="curriculumService" ref="curriculumService"></property>
+		<property name="collegeService" ref="collegeService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
+	<bean id="curriculumService"
+		class="com.tpm.service.CurriculumService">
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+		<property name="natureOfCourseDao"
+			ref="natureOfCourseDaoImpl"></property>
+		<property name="userDao" ref="userDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+
+	</bean>
+	<bean id="curriculumDaoImpl" class="com.tpm.dao.CurriculumDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- professional配置 -->
+	<bean name="professionalAction"
+		class="com.tpm.action.ProfessionalAction" scope="prototype">
+		<property name="professionalService"
+			ref="professionalService"></property>
+	</bean>
+	<bean id="professionalService"
+		class="com.tpm.service.ProfessionalService">
+		<property name="professionalDao" ref="professionalDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+	</bean>
+	<bean id="professionalDaoImpl"
+		class="com.tpm.dao.ProfessionalDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- notice配置 -->
+	<bean name="noticeAction" class="com.tpm.action.NoticeAction"
+		scope="prototype">
+		<property name="noticeService" ref="noticeService"></property>
+	</bean>
+	<bean id="noticeService" class="com.tpm.service.NoticeService">
+		<property name="noticeDao" ref="noticeDaoImpl"></property>
+	</bean>
+	<bean id="noticeDaoImpl" class="com.tpm.dao.NoticeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- noticeFile配置 -->
+	<bean name="noticeFileAction"
+		class="com.tpm.action.NoticeFileAction" scope="prototype">
+		<property name="noticeFileService" ref="noticeFileService"></property>
+	</bean>
+	<bean id="noticeFileService"
+		class="com.tpm.service.NoticeFileService">
+		<property name="noticeFileDao" ref="noticeFileDaoImpl"></property>
+	</bean>
+	<bean id="noticeFileDaoImpl" class="com.tpm.dao.NoticeFileDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- ppTrainingConcept配置 -->
+	<bean name="ppTrainingConceptAction"
+		class="com.tpm.action.PPTrainingConceptAction" scope="prototype">
+		<property name="ppTrainingConceptService"
+			ref="ppTrainingConceptService"></property>
+	</bean>
+	<bean id="ppTrainingConceptService"
+		class="com.tpm.service.PPTrainingConceptService">
+		<property name="ppTrainingConceptDao"
+			ref="ppTrainingConceptDaoImpl"></property>
+		<property name="userDao" ref="userDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+	</bean>
+	<bean id="ppTrainingConceptDaoImpl"
+		class="com.tpm.dao.PPTrainingConceptDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- ptBasicInformation配置 -->
+	<bean name="ptBasicInformationAction"
+		class="com.tpm.action.PTBasicInformationAction" scope="prototype">
+		<property name="ptBasicInformationService"
+			ref="ptBasicInformationService"></property>
+		<property name="ppTrainingConceptService"
+			ref="ppTrainingConceptService"></property>
+	</bean>
+	<bean id="ptBasicInformationService"
+		class="com.tpm.service.PTBasicInformationService">
+		<property name="ptBasicInformationDao"
+			ref="ptBasicInformationDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="abilityDao" ref="abilityDaoImpl"></property>
+		<property name="applicationMainTainOfPTDao"
+			ref="applicationMainTainOfPTDaoImpl"></property>
+		<property name="applicationTrainingEventsDao"
+			ref="applicationTrainingEventsDaoImpl"></property>
+	</bean>
+	<bean id="ptBasicInformationDaoImpl"
+		class="com.tpm.dao.PTBasicInformationDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- ability配置 -->
+	<bean name="abilityAction" class="com.tpm.action.AbilityAction"
+		scope="prototype">
+		<property name="abilityService" ref="abilityService"></property>
+	</bean>
+	<bean id="abilityService" class="com.tpm.service.AbilityService">
+		<property name="abilityDao" ref="abilityDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+	</bean>
+	<bean id="abilityDaoImpl" class="com.tpm.dao.AbilityDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- topology配置 -->
+	<bean name="topologyAction" class="com.tpm.action.TopologyAction"
+		scope="prototype">
+		<property name="topologyService" ref="topologyService"></property>
+		<property name="ppTrainingConceptService"
+			ref="ppTrainingConceptService"></property>
+	</bean>
+	<bean id="topologyService" class="com.tpm.service.TopologyService">
+		<property name="topologyDao" ref="topologyDaoImpl"></property>
+		<property name="userDao" ref="userDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="professionalDao" ref="professionalDaoImpl"></property>
+		<property name="topologyTagDao" ref="topologyTagDaoImpl"></property>
+	</bean>
+	<bean id="topologyDaoImpl" class="com.tpm.dao.TopologyDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="topologyTagDaoImpl"
+		class="com.tpm.dao.TopologyTagDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- analysis配置 -->
+	<bean name="analysisAction" class="com.tpm.action.AnalysisAction"
+		scope="prototype">
+		<property name="analysisService" ref="analysisService"></property>
+		<property name="abilityService" ref="abilityService"></property>
+		<property name="ppTrainingConceptService"
+			ref="ppTrainingConceptService"></property>
+	</bean>
+	<bean id="analysisService" class="com.tpm.service.AnalysisService">
+		<property name="analysisDao" ref="analysisDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="abilityDao" ref="abilityDaoImpl"></property>
+	</bean>
+	<bean id="analysisDaoImpl" class="com.tpm.dao.AnalysisDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- link配置 -->
+	<bean name="linkAction" class="com.tpm.action.LinkAction"
+		scope="prototype">
+		<property name="linkService" ref="linkService"></property>
+	</bean>
+	<bean id="linkService" class="com.tpm.service.LinkService">
+		<property name="linkDao" ref="linkDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+		<property name="experimentDao" ref="experimentDaoImpl"></property>
+	</bean>
+	<bean id="linkDaoImpl" class="com.tpm.dao.LinkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- mainTainOfPT配置 -->
+	<bean name="mainTainOfPTAction"
+		class="com.tpm.action.MainTainOfPTAction" scope="prototype">
+		<property name="mainTainOfPTService"
+			ref="mainTainOfPTService"></property>
+		<property name="trainingEventsService"
+			ref="trainingEventsService"></property>
+		<property name="ppTrainingConceptService"
+			ref="ppTrainingConceptService"></property>
+	</bean>
+	<bean id="mainTainOfPTService"
+		class="com.tpm.service.MainTainOfPTService">
+		<property name="mainTainOfPTDao" ref="mainTainOfPTDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="ptBasicInformationDao"
+			ref="ptBasicInformationDaoImpl"></property>
+		<property name="trainingEventsDao"
+			ref="trainingEventsDaoImpl"></property>
+		<property name="professionalDao" ref="professionalDaoImpl"></property>
+
+		<property name="mainTainOfPTTagDao"
+			ref="mainTainOfPTTagDaoImpl"></property>
+		<property name="applicationMainTainOfPTDao"
+			ref="applicationMainTainOfPTDaoImpl"></property>
+		<property name="applicationTrainingEventsDao"
+			ref="applicationTrainingEventsDaoImpl"></property>
+	</bean>
+	<bean id="mainTainOfPTDaoImpl"
+		class="com.tpm.dao.MainTainOfPTDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="mainTainOfPTTagDaoImpl"
+		class="com.tpm.dao.MainTainOfPTTagDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="applicationMainTainOfPTDaoImpl"
+		class="com.tpm.dao.ApplicationMainTainOfPTDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="applicationTrainingEventsDaoImpl"
+		class="com.tpm.dao.ApplicationTrainingEventsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- trainingEvents配置 -->
+	<bean name="trainingEventsAction"
+		class="com.tpm.action.TrainingEventsAction" scope="prototype">
+		<property name="trainingEventsService"
+			ref="trainingEventsService"></property>
+	</bean>
+	<bean id="trainingEventsService"
+		class="com.tpm.service.TrainingEventsService">
+		<property name="trainingEventsDao"
+			ref="trainingEventsDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="mainTainOfPTDao" ref="mainTainOfPTDaoImpl"></property>
+		<property name="applicationTrainingEventsDao"
+			ref="applicationTrainingEventsDaoImpl"></property>
+		<property name="professionalDao" ref="professionalDaoImpl"></property>
+		<property name="applicationMainTainOfPTDao"
+			ref="applicationMainTainOfPTDaoImpl"></property>
+	</bean>
+	<bean id="trainingEventsDaoImpl"
+		class="com.tpm.dao.TrainingEventsDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+
+
+	<!-- TheoreticalPlan配置 -->
+	<bean name="theoreticalPlanAction"
+		class="com.tpm.action.TheoreticalPlanAction" scope="prototype">
+		<property name="theoreticalPlanService"
+			ref="theoreticalPlanService"></property>
+	</bean>
+	<bean id="theoreticalPlanService"
+		class="com.tpm.service.TheoreticalPlanService">
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="professionalDao" ref="professionalDaoImpl"></property>
+		<property name="userDao" ref="userDaoImpl"></property>
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+		<property name="SyllabusDao" ref="syllabusDaoImpl"></property>
+		<property name="ApplicationSyllabusDao"
+			ref="applicationSyllabusDaoImpl"></property>
+		<property name="relateDao"
+			ref="baseExpTheoInnerRelateExpProjectTheoDaoImpl"></property>
+		<property name="indexSelectDao" ref="indexSelectDaoImpl"></property>
+		<property name="teachObjDao" ref="teachObjDaoImpl"></property>
+		<property name="abilityAndTeachObjDao"
+			ref="abilityAndTeachObjDaoImpl"></property>
+
+		<property name="contentTheoDao" ref="contentTheoDaoImpl"></property>
+		<property name="experimentContentDao"
+			ref="experimentContentDaoImpl"></property>
+		<property name="discussContentDao"
+			ref="discussContentDaoImpl"></property>
+		<property name="threeProjectDao" ref="threeProjectDaoImpl"></property>
+		<property name="otherContentDao" ref="otherContentDaoImpl"></property>
+		<property name="textBooksDao" ref="textBooksDaoImpl"></property>
+
+		<property name="syllabus_TheoInnerExperimentDao"
+			ref="syllabus_TheoInnerExperimentDaoImpl"></property>
+		<property name="applicationSyllabus_TheoInnerExperimentDao"
+			ref="applicationSyllabus_TheoInnerExperimentDaoImpl"></property>
+		<property name="indexSelect_TheoInnerExperimentDao"
+			ref="indexSelect_TheoInnerExperimentDaoImpl"></property>
+		<property name="teachObj_TheoInnerExperimentDao"
+			ref="teachObj_TheoInnerExperimentDaoImpl"></property>
+		<property name="abilityAndTeachObj_TheoInnerExperimentDao"
+			ref="abilityAndTeachObj_TheoInnerExperimentDaoImpl"></property>
+		<property name="expermentProject_InnerExperimentDao"
+			ref="expermentProject_InnerExperimentDaoImpl"></property>
+		<property name="textBooks_InnerExperimentDao"
+			ref="textBooks_InnerExperimentDaoImpl"></property>
+		<property name="distributeHour_TheoDao"
+			ref="distributeHour_TheoDaoImpl"></property>
+		<property name="distributeHour_TheoInnerExperimentDao"
+			ref="distributeHour_TheoInnerExperimentDaoImpl"></property>
+
+		<property name="curriculumMatrixDao"
+			ref="curriculumMatrixDaoImpl"></property>
+		<property name="experimentDao" ref="experimentDaoImpl"></property>
+	</bean>
+
+	<bean id="theoreticalPlanDaoImpl"
+		class="com.tpm.dao.TheoreticalPlanDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="syllabusDaoImpl" class="com.tpm.dao.SyllabusDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="applicationSyllabusDaoImpl"
+		class="com.tpm.dao.ApplicationSyllabusDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="indexSelectDaoImpl"
+		class="com.tpm.dao.IndexSelectDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="syllabus_TheoInnerExperimentDaoImpl"
+		class="com.tpm.dao.Syllabus_TheoInnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="applicationSyllabus_TheoInnerExperimentDaoImpl"
+		class="com.tpm.dao.ApplicationSyllabus_TheoInnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="indexSelect_TheoInnerExperimentDaoImpl"
+		class="com.tpm.dao.IndexSelect_TheoInnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="distributeHour_TheoDaoImpl"
+		class="com.tpm.dao.DistributeHour_TheoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="distributeHour_TheoInnerExperimentDaoImpl"
+		class="com.tpm.dao.DistributeHour_TheoInnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- PracticePlan配置 -->
+	<bean name="practicePlanAction"
+		class="com.tpm.action.PracticePlanAction" scope="prototype">
+		<property name="practicePlanService"
+			ref="practicePlanService"></property>
+		<property name="collegeService" ref="collegeService"></property>
+	</bean>
+	<bean id="practicePlanService"
+		class="com.tpm.service.PracticePlanService">
+		<property name="practicerelateDao"
+			ref="distributeHourRelateExperProjectDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="professionalDao" ref="professionalDaoImpl"></property>
+		<property name="userDao" ref="userDaoImpl"></property>
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+		<property name="SyllabusDao" ref="syllabusDaoImpl"></property>
+		<property name="ApplicationSyllabusDao"
+			ref="applicationSyllabusDaoImpl"></property>
+		<property name="Syllabus_FieldWorkDao"
+			ref="Syllabus_FieldWorkDaoImpl"></property>
+		<property name="ApplicationSyllabus_FieldWorkDao"
+			ref="ApplicationSyllabus_FieldWorkDaoImpl"></property>
+		<property name="syllabus_CourseDesignDao"
+			ref="syllabus_CourseDesignDaoImpl"></property>
+		<property name="applicationSyllabus_CourseDesignDao"
+			ref="applicationSyllabus_CourseDesignDaoImpl"></property>
+		<property name="syllabus_GraDao" ref="syllabus_GraDaoImpl"></property>
+		<property name="applicationSyllabus_GraDao"
+			ref="applicationSyllabus_GraDaoImpl"></property>
+		<property name="syllabus_InnerExperimentDao"
+			ref="syllabus_InnerExperimentDaoImpl"></property>
+		<property name="applicationSyllabus_InnerExperimentDao"
+			ref="applicationSyllabus_InnerExperimentDaoImpl"></property>
+		<property name="indexSelect_FieldWorkDao"
+			ref="indexSelect_FieldWorkDaoImpl"></property>
+		<property name="teachObj_FieldWorkDao"
+			ref="teachObj_FieldWorkDaoImpl"></property>
+		<property name="abilityAndTeachObj_FieldWorkDao"
+			ref="abilityAndTeachObj_FieldWorkDaoImpl"></property>
+		<property name="indexSelect_CourseDesignDao"
+			ref="indexSelect_CourseDesignDaoImpl"></property>
+		<property name="teachObj_CourseDesignDao"
+			ref="teachObj_CourseDesignDaoImpl"></property>
+		<property name="abilityAndTeachObj_CourseDesignDao"
+			ref="abilityAndTeachObj_CourseDesignDaoImpl"></property>
+		<property name="indexSelect_InnerExperimentDao"
+			ref="indexSelect_InnerExperimentDaoImpl"></property>
+		<property name="teachObj_InnerExperimentDao"
+			ref="teachObj_InnerExperimentDaoImpl"></property>
+		<property name="abilityAndTeachObj_InnerExperimentDao"
+			ref="abilityAndTeachObj_InnerExperimentDaoImpl"></property>
+		<property name="indexSelect_GraDao"
+			ref="indexSelect_GraDaoImpl"></property>
+		<property name="teachObj_GraDao" ref="teachObj_GraDaoImpl"></property>
+		<property name="abilityAndTeachObj_GraDao"
+			ref="abilityAndTeachObj_GraDaoImpl"></property>
+		<property name="practiceBookDao" ref="practiceBookDaoImpl"></property>
+		<property name="practiceBooks_CourseDesignDao"
+			ref="practiceBooks_CourseDesignDaoImpl"></property>
+		<property name="expermentProjectDao"
+			ref="expermentProjectDaoImpl"></property>
+		<property name="practiceBooks_InnerExperimentDao"
+			ref="practiceBooks_InnerExperimentDaoImpl"></property>
+
+		<property name="distributeHour_CourseDesignDao"
+			ref="distributeHour_CourseDesignDaoImpl"></property>
+		<property name="distributeHour_InnerExperimentDao"
+			ref="distributeHour_InnerExperimentDaoImpl"></property>
+		<property name="distributeHour_GraDao"
+			ref="distributeHour_GraDaoImpl"></property>
+
+		<property name="curriculumMatrixDao"
+			ref="curriculumMatrixDaoImpl"></property>
+
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="abilityAndTeachObjDao"
+			ref="abilityAndTeachObjDaoImpl"></property>
+		<property name="indexSelectDao" ref="indexSelectDaoImpl"></property>
+		<property name="teachObjDao" ref="teachObjDaoImpl"></property>
+		<property name="contentTheoDao" ref="contentTheoDaoImpl"></property>
+		<property name="experimentContentDao"
+			ref="experimentContentDaoImpl"></property>
+		<property name="discussContentDao"
+			ref="discussContentDaoImpl"></property>
+		<property name="threeProjectDao" ref="threeProjectDaoImpl"></property>
+		<property name="otherContentDao" ref="otherContentDaoImpl"></property>
+		<property name="textBooksDao" ref="textBooksDaoImpl"></property>
+		<property name="distributeHour_TheoDao"
+			ref="distributeHour_TheoDaoImpl"></property>
+		<property name="experimentDao" ref="experimentDaoImpl"></property>
+	</bean>
+
+	<bean name="distributeHour_CourseDesignDaoImpl"
+		class="com.tpm.dao.DistributeHour_CourseDesignDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean name="distributeHour_InnerExperimentDaoImpl"
+		class="com.tpm.dao.DistributeHour_InnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean name="distributeHour_GraDaoImpl"
+		class="com.tpm.dao.DistributeHour_GraDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean name="syllabus_InnerExperimentDaoImpl"
+		class="com.tpm.dao.Syllabus_InnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="applicationSyllabus_InnerExperimentDaoImpl"
+		class="com.tpm.dao.ApplicationSyllabus_InnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean name="syllabus_GraDaoImpl"
+		class="com.tpm.dao.Syllabus_GraDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="applicationSyllabus_GraDaoImpl"
+		class="com.tpm.dao.ApplicationSyllabus_GraDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="syllabus_CourseDesignDaoImpl"
+		class="com.tpm.dao.Syllabus_CourseDesignDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="applicationSyllabus_CourseDesignDaoImpl"
+		class="com.tpm.dao.ApplicationSyllabus_CourseDesignDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="ApplicationSyllabus_FieldWorkDaoImpl"
+		class="com.tpm.dao.ApplicationSyllabus_FieldWorkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="Syllabus_FieldWorkDaoImpl"
+		class="com.tpm.dao.Syllabus_FieldWorkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="practicePlanDaoImpl"
+		class="com.tpm.dao.PracticePlanDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="indexSelect_FieldWorkDaoImpl"
+		class="com.tpm.dao.IndexSelect_FieldWorkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="indexSelect_CourseDesignDaoImpl"
+		class="com.tpm.dao.IndexSelect_CourseDesignDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="indexSelect_InnerExperimentDaoImpl"
+		class="com.tpm.dao.IndexSelect_InnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="indexSelect_GraDaoImpl"
+		class="com.tpm.dao.IndexSelect_GraDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- ErrorDisc配置 -->
+	<bean name="errorDiscAction"
+		class="com.tpm.action.ErrorDiscAction" scope="prototype">
+		<property name="errorDiscService" ref="errorDiscService"></property>
+	</bean>
+	<bean name="errorDiscService"
+		class="com.tpm.service.ErrorDiscService">
+		<property name="errorDiscDao" ref="errorDiscDaoImpl"></property>
+		<property name="userDao" ref="userDaoImpl"></property>
+		<property name="ptBasicInformationDao"
+			ref="ptBasicInformationDaoImpl"></property>
+		<property name="avePerThresholdDao"
+			ref="avePerThresholdDaoImpl"></property>
+	</bean>
+
+	<bean name="errorDiscDaoImpl" class="com.tpm.dao.ErrorDiscDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- baseTheo配置 -->
+	<bean name="baseTheoAction" class="com.tpm.action.BaseTheoAction"
+		scope="prototype">
+		<property name="baseTheoService" ref="baseTheoService"></property>
+	</bean>
+	<bean name="baseTheoService"
+		class="com.tpm.service.BaseTheoService">
+		<property name="baseTheoDao" ref="baseTheoDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+		<property name="applicationSyllabusDao"
+			ref="applicationSyllabusDaoImpl"></property>
+		<property name="syllabusDao" ref="syllabusDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+	</bean>
+
+	<bean name="baseTheoDaoImpl" class="com.tpm.dao.BaseTheoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- teaMethodTheo配置 -->
+	<bean name="teaMethodTheoAction"
+		class="com.tpm.action.TeaMethodTheoAction" scope="prototype">
+		<property name="teaMethodTheoService"
+			ref="teaMethodTheoService"></property>
+	</bean>
+	<bean name="teaMethodTheoService"
+		class="com.tpm.service.TeaMethodTheoService">
+		<property name="teaMethodTheoDao" ref="teaMethodTheoDaoImpl"></property>
+		<property name="ApplicationSyllabusDao"
+			ref="applicationSyllabusDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="SyllabusDao" ref="syllabusDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+	</bean>
+	<bean name="teaMethodTheoDaoImpl"
+		class="com.tpm.dao.TeaMethodTheoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- ContentTheo配置 -->
+	<bean name="contentTheoAction"
+		class="com.tpm.action.ContentTheoAction" scope="prototype">
+		<property name="contentTheoservice" ref="contentTheoservice"></property>
+	</bean>
+	<bean name="contentTheoservice"
+		class="com.tpm.service.ContentTheoService">
+		<property name="contentTheoDao" ref="contentTheoDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+
+	</bean>
+	<bean name="contentTheoDaoImpl"
+		class="com.tpm.dao.ContentTheoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- TextBooks配置 -->
+	<bean name="textBooksAction"
+		class="com.tpm.action.TextBooksAction" scope="prototype">
+		<property name="textBooksService" ref="textBooksService"></property>
+	</bean>
+	<bean name="textBooksService"
+		class="com.tpm.service.TextBooksService">
+		<property name="textBooksDao" ref="textBooksDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+	</bean>
+	<bean name="textBooksDaoImpl" class="com.tpm.dao.TextBooksDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- ExperimentContent配置 -->
+	<bean name="experimentContentAction"
+		class="com.tpm.action.ExperimentContentAction" scope="prototype">
+		<property name="experimentContentService"
+			ref="experimentContentService"></property>
+	</bean>
+	<bean name="experimentContentService"
+		class="com.tpm.service.ExperimentContentService">
+		<property name="experimentContentDao"
+			ref="experimentContentDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+	</bean>
+	<bean name="experimentContentDaoImpl"
+		class="com.tpm.dao.ExperimentContentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- DiscussContent配置 -->
+	<bean name="discussContentAction"
+		class="com.tpm.action.DiscussContentAction" scope="prototype">
+		<property name="discussContentService"
+			ref="discussContentService"></property>
+	</bean>
+	<bean name="discussContentService"
+		class="com.tpm.service.DiscussContentService">
+		<property name="discussContentDao"
+			ref="discussContentDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+	</bean>
+	<bean name="discussContentDaoImpl"
+		class="com.tpm.dao.DiscussContentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- ThreeProject配置 -->
+	<bean name="threeProjectAction"
+		class="com.tpm.action.ThreeProjectAction" scope="prototype">
+		<property name="threeProjectService"
+			ref="threeProjectService"></property>
+	</bean>
+	<bean name="threeProjectService"
+		class="com.tpm.service.ThreeProjectService">
+		<property name="threeProjectDao" ref="threeProjectDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+	</bean>
+	<bean name="threeProjectDaoImpl"
+		class="com.tpm.dao.ThreeProjectDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- OtherContent配置 -->
+	<bean name="otherContentAction"
+		class="com.tpm.action.OtherContentAction" scope="prototype">
+		<property name="otherContentService"
+			ref="otherContentService"></property>
+	</bean>
+	<bean name="otherContentService"
+		class="com.tpm.service.OtherContentService">
+		<property name="otherContentDao" ref="otherContentDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+	</bean>
+	<bean name="otherContentDaoImpl"
+		class="com.tpm.dao.OtherContentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- BasePracticet配置 -->
+	<bean name="basePracticetAction"
+		class="com.tpm.action.BasePracticeAction" scope="prototype">
+		<property name="basePracticeService"
+			ref="basePracticeService"></property>
+	</bean>
+	<bean name="basePracticeService"
+		class="com.tpm.service.BasePracticeService">
+		<property name="basePracticeDao" ref="basePracticeDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="applicationSyllabus_GraDao"
+			ref="applicationSyllabus_GraDaoImpl"></property>
+		<property name="syllabus_GraDao" ref="syllabus_GraDaoImpl"></property>
+	</bean>
+	<bean name="basePracticeDaoImpl"
+		class="com.tpm.dao.BasePracticeDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- PracticeBook配置 -->
+	<bean name="practiceBookAction"
+		class="com.tpm.action.PracticeBookAction" scope="prototype">
+		<property name="practiceBookService"
+			ref="practiceBookService"></property>
+	</bean>
+	<bean name="practiceBookService"
+		class="com.tpm.service.PracticeBookService">
+		<property name="practiceBookDao" ref="practiceBookDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+	</bean>
+	<bean name="practiceBookDaoImpl"
+		class="com.tpm.dao.PracticeBookDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- ContentGra配置 -->
+	<bean name="contentGraAction"
+		class="com.tpm.action.ContentGraAction" scope="prototype">
+		<property name="contentGraService" ref="contentGraService"></property>
+	</bean>
+	<bean name="contentGraService"
+		class="com.tpm.service.ContentGraService">
+		<property name="contentGraDao" ref="contentGraDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="syllabus_GraDao" ref="syllabus_GraDaoImpl"></property>
+	</bean>
+	<bean name="contentGraDaoImpl"
+		class="com.tpm.dao.ContentGraDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- FieldWork配置 -->
+	<bean name="fieldWorkAction"
+		class="com.tpm.action.FieldWorkAction" scope="prototype">
+		<property name="fieldWorkService" ref="fieldWorkService"></property>
+	</bean>
+	<bean name="fieldWorkService"
+		class="com.tpm.service.FieldWorkService">
+		<property name="fieldWorkDao" ref="fieldWorkDaoImpl"></property>
+		<property name="applicationSyllabus_FieldWorkDao"
+			ref="ApplicationSyllabus_FieldWorkDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="syllabus_FieldWorkDao"
+			ref="Syllabus_FieldWorkDaoImpl"></property>
+	</bean>
+	<bean name="fieldWorkDaoImpl" class="com.tpm.dao.FieldWorkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- FieldContent配置 -->
+	<bean name="fieldContetnAction"
+		class="com.tpm.action.FieldContentAction" scope="prototype">
+		<property name="fieldContentService"
+			ref="fieldContentService"></property>
+	</bean>
+	<bean name="fieldContentService"
+		class="com.tpm.service.FieldContentService">
+		<property name="fieldContentDao" ref="fieldContentDaoImpl"></property>
+		<property name="applicationSyllabus_FieldWorkDao"
+			ref="ApplicationSyllabus_FieldWorkDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="syllabus_FieldWorkDao"
+			ref="Syllabus_FieldWorkDaoImpl"></property>
+	</bean>
+	<bean name="fieldContentDaoImpl"
+		class="com.tpm.dao.FieldContentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- BaseCourseDesign配置 -->
+	<bean name="baseCourseDesignAction"
+		class="com.tpm.action.BaseCourseDesignAction" scope="prototype">
+		<property name="baseCourseDesignService"
+			ref="baseCourseDesignService"></property>
+	</bean>
+	<bean name="baseCourseDesignService"
+		class="com.tpm.service.BaseCourseDesignService">
+		<property name="baseCourseDesignDao"
+			ref="baseCourseDesignDaoImpl"></property>
+		<property name="applicationSyllabus_CourseDesignDao"
+			ref="applicationSyllabus_CourseDesignDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="syllabus_CourseDesignDao"
+			ref="syllabus_CourseDesignDaoImpl"></property>
+	</bean>
+	<bean name="baseCourseDesignDaoImpl"
+		class="com.tpm.dao.BaseCourseDesignDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- ConCourseDesign配置 -->
+	<bean name="conCourseDesignAction"
+		class="com.tpm.action.ConCourseDesignAction" scope="prototype">
+		<property name="conCourseDesignService"
+			ref="conCourseDesignService"></property>
+	</bean>
+	<bean name="conCourseDesignService"
+		class="com.tpm.service.ConCourseDesignService">
+		<property name="conCourseDesignDao"
+			ref="conCourseDesignDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="syllabus_CourseDesignDao"
+			ref="syllabus_CourseDesignDaoImpl"></property>
+	</bean>
+	<bean name="conCourseDesignDaoImpl"
+		class="com.tpm.dao.ConCourseDesignDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- WayCourseDesign配置 -->
+	<bean name="wayCourseDesignAction"
+		class="com.tpm.action.WayCourseDesignAction" scope="prototype">
+		<property name="wayCourseDesignService"
+			ref="wayCourseDesignService"></property>
+	</bean>
+	<bean name="wayCourseDesignService"
+		class="com.tpm.service.WayCourseDesignService">
+		<property name="wayCourseDesignDao"
+			ref="wayCourseDesignDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="syllabus_CourseDesignDao"
+			ref="syllabus_CourseDesignDaoImpl"></property>
+	</bean>
+	<bean name="wayCourseDesignDaoImpl"
+		class="com.tpm.dao.WayCourseDesignDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- BaseExperiment配置 -->
+	<bean name="baseExperimentAction"
+		class="com.tpm.action.BaseExperimentAction" scope="prototype">
+		<property name="baseExperimentService"
+			ref="baseExperimentService"></property>
+	</bean>
+	<bean name="baseExperimentService"
+		class="com.tpm.service.BaseExperimentService">
+		<property name="baseExperimentDao"
+			ref="baseExperimentDaoImpl"></property>
+		<property name="applicationSyllabus_InnerExperimentDao"
+			ref="applicationSyllabus_InnerExperimentDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="syllabus_InnerExperimentDao"
+			ref="syllabus_InnerExperimentDaoImpl"></property>
+		<property name="innerExperimentDao"
+			ref="distributeHour_InnerExperimentDaoImpl"></property>
+		<property name="relateDao"
+			ref="distributeHourRelateExperProjectDaoImpl"></property>
+		<property name="expermentProjectDao"
+			ref="expermentProjectDaoImpl"></property>
+	</bean>
+	<bean name="baseExperimentDaoImpl"
+		class="com.tpm.dao.BaseExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- ExpermentProject配置 -->
+	<bean name="expermentProjectAction"
+		class="com.tpm.action.ExpermentProjectAction" scope="prototype">
+		<property name="expermentProjectService"
+			ref="expermentProjectService"></property>
+	</bean>
+	<bean name="expermentProjectService"
+		class="com.tpm.service.ExpermentProjectService">
+		<property name="expermentProjectDao"
+			ref="expermentProjectDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+	</bean>
+	<bean name="expermentProjectDaoImpl"
+		class="com.tpm.dao.ExpermentProjectDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- TeachCal配置 -->
+	<bean name="teachCalAction" class="com.tpm.action.TeachCalAction"
+		scope="prototype">
+		<property name="teachCalService" ref="teachCalService"></property>
+	</bean>
+	<bean id="teachCalService" class="com.tpm.service.TeachCalService">
+		<property name="teachCalDao" ref="teachCalDaoImpl"></property>
+		<property name="userDao" ref="userDaoImpl"></property>
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+	</bean>
+	<bean id="teachCalDaoImpl" class="com.tpm.dao.TeachCalDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- CurriculumMatrix配置 -->
+	<bean name="curriculumMatrixAction"
+		class="com.tpm.action.CurriculumMatrixAction" scope="prototype">
+		<property name="curriculumMatrixService"
+			ref="curriculumMatrixService"></property>
+		<property name="ppTrainingConceptService"
+			ref="ppTrainingConceptService"></property>
+	</bean>
+	<bean name="curriculumMatrixService"
+		class="com.tpm.service.CurriculumMatrixService">
+		<property name="curriculumMatrixDao"
+			ref="curriculumMatrixDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+		<property name="abilityDao" ref="abilityDaoImpl"></property>
+		<property name="analysisDao" ref="analysisDaoImpl"></property>
+		<property name="natureOfCourseDao"
+			ref="natureOfCourseDaoImpl"></property>
+		<property name="professionalDao" ref="professionalDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+	</bean>
+	<bean name="curriculumMatrixDaoImpl"
+		class="com.tpm.dao.CurriculumMatrixDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- ScoreThreshold配置 -->
+	<bean name="scoreThresholdAction"
+		class="com.tpm.action.ScoreThresholdAction" scope="prototype">
+		<property name="scoreThresholdService"
+			ref="scoreThresholdService"></property>
+	</bean>
+	<bean name="scoreThresholdService"
+		class="com.tpm.service.ScoreThresholdService">
+		<property name="scoreThresholdDao"
+			ref="scoreThresholdDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="avePerThresholdDao"
+			ref="avePerThresholdDaoImpl"></property>
+	</bean>
+	<bean name="scoreThresholdDaoImpl"
+		class="com.tpm.dao.ScoreThresholdDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean name="avePerThresholdDaoImpl"
+		class="com.tpm.dao.AvePerThresholdDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- another配置 -->
+	<bean name="trainingAnotherAction"
+		class="com.tpm.action.TrainingAnotherAction" scope="prototype">
+		<property name="trainingAnotherService"
+			ref="trainingAnotherService"></property>
+		<property name="practicePlanService"
+			ref="practicePlanService"></property>
+		<property name="ppTrainingConceptService"
+			ref="ppTrainingConceptService"></property>
+	</bean>
+	<bean id="trainingAnotherService"
+		class="com.tpm.service.TrainingAnotherService">
+		<property name="trainingAnotherDao"
+			ref="trainingAnotherDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+	</bean>
+	<bean id="trainingAnotherDaoImpl"
+		class="com.tpm.dao.TrainingAnotherDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- teachObj配置 -->
+	<bean name="teachObjAction" class="com.tpm.action.TeachObjAction"
+		scope="prototype">
+		<property name="teachObjService" ref="teachObjService"></property>
+	</bean>
+	<bean id="teachObjService" class="com.tpm.service.TeachObjService">
+		<property name="teachObjDao" ref="teachObjDaoImpl"></property>
+
+		<property name="teachObj_FieldWorkDao"
+			ref="teachObj_FieldWorkDaoImpl"></property>
+		<property name="teachObj_CourseDesignDao"
+			ref="teachObj_CourseDesignDaoImpl"></property>
+
+		<property name="teachObj_InnerExperimentDao"
+			ref="teachObj_InnerExperimentDaoImpl"></property>
+
+		<property name="teachObj_GraDao" ref="teachObj_GraDaoImpl"></property>
+		<property name="teachObj_TheoInnerExperimentDao"
+			ref="teachObj_TheoInnerExperimentDaoImpl"></property>
+
+	</bean>
+	<bean id="teachObjDaoImpl" class="com.tpm.dao.TeachObjDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="teachObj_FieldWorkDaoImpl"
+		class="com.tpm.dao.TeachObj_FieldWorkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="teachObj_CourseDesignDaoImpl"
+		class="com.tpm.dao.TeachObj_CourseDesignDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="teachObj_InnerExperimentDaoImpl"
+		class="com.tpm.dao.TeachObj_InnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="teachObj_GraDaoImpl"
+		class="com.tpm.dao.TeachObj_GraDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="teachObj_TheoInnerExperimentDaoImpl"
+		class="com.tpm.dao.TeachObj_TheoInnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- abilityAndTeachObj配置 -->
+	<bean name="abilityAndTeachObjAction"
+		class="com.tpm.action.AbilityAndTeachObjAction" scope="prototype">
+		<property name="abilityAndTeachObjService"
+			ref="abilityAndTeachObjService"></property>
+	</bean>
+	<bean id="abilityAndTeachObjService"
+		class="com.tpm.service.AbilityAndTeachObjService">
+		<property name="abilityAndTeachObjDao"
+			ref="abilityAndTeachObjDaoImpl"></property>
+		<property name="abilityDao" ref="abilityDaoImpl"></property>
+		<property name="analysisDao" ref="analysisDaoImpl"></property>
+		<property name="teachObjDao" ref="teachObjDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+
+		<property name="abilityAndTeachObj_FieldWorkDao"
+			ref="abilityAndTeachObj_FieldWorkDaoImpl"></property>
+		<property name="teachObj_FieldWorkDao"
+			ref="teachObj_FieldWorkDaoImpl"></property>
+
+		<property name="abilityAndTeachObj_CourseDesignDao"
+			ref="abilityAndTeachObj_CourseDesignDaoImpl"></property>
+		<property name="teachObj_CourseDesignDao"
+			ref="teachObj_CourseDesignDaoImpl"></property>
+
+		<property name="abilityAndTeachObj_InnerExperimentDao"
+			ref="abilityAndTeachObj_InnerExperimentDaoImpl"></property>
+		<property name="teachObj_InnerExperimentDao"
+			ref="teachObj_InnerExperimentDaoImpl"></property>
+
+		<property name="abilityAndTeachObj_GraDao"
+			ref="abilityAndTeachObj_GraDaoImpl"></property>
+		<property name="teachObj_GraDao" ref="teachObj_GraDaoImpl"></property>
+
+		<property name="abilityAndTeachObj_TheoInnerExperimentDao"
+			ref="abilityAndTeachObj_TheoInnerExperimentDaoImpl"></property>
+		<property name="teachObj_TheoInnerExperimentDao"
+			ref="teachObj_TheoInnerExperimentDaoImpl"></property>
+
+		<property name="curriculumMatrixDao"
+			ref="curriculumMatrixDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+
+
+	</bean>
+
+	<bean id="abilityAndTeachObjDaoImpl"
+		class="com.tpm.dao.AbilityAndTeachObjImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="abilityAndTeachObj_FieldWorkDaoImpl"
+		class="com.tpm.dao.AbilityAndTeachObj_FieldWorkDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="abilityAndTeachObj_CourseDesignDaoImpl"
+		class="com.tpm.dao.AbilityAndTeachObj_CourseDesignDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="abilityAndTeachObj_InnerExperimentDaoImpl"
+		class="com.tpm.dao.AbilityAndTeachObj_InnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="abilityAndTeachObj_GraDaoImpl"
+		class="com.tpm.dao.AbilityAndTeachObj_GraDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="abilityAndTeachObj_TheoInnerExperimentDaoImpl"
+		class="com.tpm.dao.AbilityAndTeachObj_TheoInnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<bean name="exportWordAction"
+		class="com.tpm.action.ExportWordAction" scope="prototype">
+		<property name="exportWordService" ref="exportWordService"></property>
+	</bean>
+	<bean id="exportWordService"
+		class="com.tpm.service.ExportWordService">
+		<property name="exportWordDao" ref="exportWordDaoDaoImpl"></property>
+		<property name="curriculumDao" ref="curriculumDaoImpl"></property>
+		<property name="abilityDao" ref="abilityDaoImpl"></property>
+	</bean>
+	<bean id="exportWordDaoDaoImpl"
+		class="com.tpm.dao.ExportWordDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- PracticeBooks_CourseDesign配置 课程设计教材 -->
+	<bean name="practiceBook_CourseDesignAction"
+		class="com.tpm.action.PracticeBook_CourseDesignAction"
+		scope="prototype">
+		<property name="practiceBooks_CourseDesignService"
+			ref="practiceBooks_CourseDesignService"></property>
+	</bean>
+	<bean id="practiceBooks_CourseDesignService"
+		class="com.tpm.service.PracticeBooks_CourseDesignService">
+		<property name="practiceBooks_CourseDesignDao"
+			ref="practiceBooks_CourseDesignDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+
+	</bean>
+	<bean id="practiceBooks_CourseDesignDaoImpl"
+		class="com.tpm.dao.PracticeBooks_CourseDesignDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- PracticeBooks_CourseDesign配置 课内实验教材 -->
+	<bean name="practiceBooks_InnerExperimentAction"
+		class="com.tpm.action.PracticeBooks_InnerExperimentAction"
+		scope="prototype">
+		<property name="practiceBooks_InnerExperimentService"
+			ref="practiceBooks_InnerExperimentService"></property>
+	</bean>
+	<bean id="practiceBooks_InnerExperimentService"
+		class="com.tpm.service.PracticeBooks_InnerExperimentService">
+		<property name="practiceBooks_InnerExperimentDao"
+			ref="practiceBooks_InnerExperimentDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+
+	</bean>
+	<bean id="practiceBooks_InnerExperimentDaoImpl"
+		class="com.tpm.dao.PracticeBooks_InnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- ExpermentProject_InnerExperimentAction配置 理论课课内实验-实验内容 -->
+	<bean name="expermentProject_InnerExperimentAction"
+		class="com.tpm.action.ExpermentProject_InnerExperimentAction"
+		scope="prototype">
+		<property name="expermentProject_InnerExperimentService"
+			ref="expermentProject_InnerExperimentService"></property>
+	</bean>
+	<bean id="expermentProject_InnerExperimentService"
+		class="com.tpm.service.ExpermentProject_InnerExperimentService">
+		<property name="expermentProject_InnerExperimentDao"
+			ref="expermentProject_InnerExperimentDaoImpl"></property>
+		<property name="applicationSyllabus_TheoInnerExperimentDao"
+			ref="applicationSyllabus_TheoInnerExperimentDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+
+
+	</bean>
+	<bean id="expermentProject_InnerExperimentDaoImpl"
+		class="com.tpm.dao.ExpermentProject_InnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- TextBooks_InnerExperimentAction配置 理论课课内实验-实验教材 -->
+	<bean name="textBooks_InnerExperimentAction"
+		class="com.tpm.action.TextBooks_InnerExperimentAction"
+		scope="prototype">
+		<property name="textBooks_InnerExperimentService"
+			ref="textBooks_InnerExperimentService"></property>
+	</bean>
+	<bean id="textBooks_InnerExperimentService"
+		class="com.tpm.service.TextBooks_InnerExperimentService">
+		<property name="textBooks_InnerExperimentDao"
+			ref="textBooks_InnerExperimentDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+	</bean>
+	<bean id="textBooks_InnerExperimentDaoImpl"
+		class="com.tpm.dao.TextBooks_InnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- baseExperiment_TheoInnerExperiment配置 -->
+	<bean name="baseExperimentTheoInnerExperiment"
+		class="com.tpm.action.BaseExperiment_TheoInnerExperimentAction"
+		scope="prototype">
+		<property name="baseExperiment_TheoInnerExperimentService"
+			ref="baseExperiment_TheoInnerExperimentService"></property>
+	</bean>
+	<bean name="baseExperiment_TheoInnerExperimentService"
+		class="com.tpm.service.BaseExperiment_TheoInnerExperimentService">
+		<property name="baseExperiment_TheoInnerExperimentDao"
+			ref="baseExperiment_TheoInnerExperimentDaoImpl"></property>
+		<property name="applicationSyllabus_TheoInnerExperimentDao"
+			ref="applicationSyllabus_TheoInnerExperimentDaoImpl"></property>
+		<property name="syllabus_TheoInnerExperimentDao"
+			ref="syllabus_TheoInnerExperimentDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="expermentProject_InnerExperimentDao"
+			ref="expermentProject_InnerExperimentDaoImpl"></property>
+		<property name="relateDao"
+			ref="baseExpTheoInnerRelateExpProjectTheoDaoImpl"></property>
+		<property name="distributeHour_TheoInnerExperimentDao"
+			ref="distributeHour_TheoInnerExperimentDaoImpl"></property>
+
+	</bean>
+	<bean id="baseExperiment_TheoInnerExperimentDaoImpl"
+		class="com.tpm.dao.BaseExperiment_TheoInnerExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- exportcurriculumMatrix配置 -->
+	<bean name="exportCurriculumMatrixAction"
+		class="com.tpm.action.ExportCurriculumMatrixAction" scope="prototype">
+		<property name="exportCurriculumMatrixService"
+			ref="exportCurriculumMatrixService"></property>
+		<property name="curriculumMatrixService"
+			ref="curriculumMatrixService"></property>
+	</bean>
+	<bean name="exportCurriculumMatrixService"
+		class="com.tpm.service.ExportCurriculumMatrixService">
+		<property name="exportCurriculumMatrixDao"
+			ref="exportCurriculumMatrixDaoImpl"></property>
+	</bean>
+	<bean id="exportCurriculumMatrixDaoImpl"
+		class="com.tpm.dao.ExportCurriculumMatrixDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<!-- experiment配置 -->
+	<bean name="experimentAction"
+		class="com.tpm.action.ExperimentAction" scope="prototype">
+		<property name="experimentService" ref="experimentService"></property>
+	</bean>
+	<bean name="experimentService"
+		class="com.tpm.service.ExperimentService">
+		<property name="experimentDao" ref="experimentDaoImpl"></property>
+		<property name="collegeDao" ref="collegeDaoImpl"></property>
+		<property name="userDao" ref="userDaoImpl"></property>
+		<property name="theoreticalPlanDao"
+			ref="theoreticalPlanDaoImpl"></property>
+		<property name="practicePlanDao" ref="practicePlanDaoImpl"></property>
+	</bean>
+	<bean id="experimentDaoImpl" class="com.tpm.dao.ExperimentDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- exportAction配置 -->
+	<bean id="exportAction" class="com.tpm.action.ExportAction"
+		scope="prototype">
+		<property name="exportService" ref="exportService"></property>
+	</bean>
+	<bean id="exportService" class="com.tpm.service.ExportService">
+		<property name="exportDao" ref="exportDaoImpl"></property>
+		<property name="departmentDao" ref="departmentDaoImpl"></property>
+		<property name="abilityDao" ref="abilityDaoImpl"></property>
+		<property name="analysisDao" ref="analysisDaoImpl"></property>
+	</bean>
+	<bean id="exportDaoImpl" class="com.tpm.dao.ExportDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="baseExpTheoInnerRelateExpProjectTheoDaoImpl"
+		class="com.tpm.dao.BaseExpTheoInnerRelateExpProjectTheoDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="distributeHourRelateExperProjectDaoImpl"
+		class="com.tpm.dao.DistributeHourRelateExperProjectDaoImpl">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+</beans>
+
+
+
+
+
+

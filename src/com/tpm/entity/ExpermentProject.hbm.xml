@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.ExpermentProject" table="课内实验内容">
+		<id name="expermentProjectid" column="实验内容ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="name" column="单元名称"></property>
+		<property name="time" column="建议学时"></property>
+		<property name="num" column="支撑教学目标"></property>
+		<property name="equipment" column="实验设备及材料" length="5000"></property>
+		<property name="theory" column="实验原理" length="5000"></property>
+		<property name="request" column="教学要求" length="5000"></property>
+		<property name="syllabus_InnerExperimentid"
+			column="大纲课内实验表ID"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.ConCourseDesign" table="课程设计基本内容">
+		<id name="conCourseDesignid" column="课程信息ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="content" column="基本内容" length="5000"></property>
+		<property name="request" column="基本要求" length="5000"></property>
+
+		<set name="setSyllabus_CourseDesign" inverse="true"
+			cascade="delete">
+			<key column="课程设计内容"></key>
+			<one-to-many class="com.tpm.entity.Syllabus_CourseDesign" />
+		</set>
+	</class>
+</hibernate-mapping>

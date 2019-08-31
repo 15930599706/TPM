@@ -1,0 +1,43 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	height: 600px;
+	width: 1518px;
+	min-width: 1518px;
+}
+
+.nav {
+	display: block;
+	height: 54px;
+	height: 33px;
+	line-height: 33px;
+}
+
+.za, .fh {
+	display: block;
+	color: #fa911e;
+	padding-left: 15px;
+	text-decoration: none;
+	margin: 0 15px;
+	border: 3px solid #ccc;
+	border-radius: 20px;
+}
+
+.nav a:hover {
+	border: 3px solid #fa911e;
+	background-color: #fa911e;
+	color: #fff;
+}
+
+li {
+	list-style-type: none;
+	float: right;
+}
+
+span {
+	display: inline-block;
+	padding-right: 15px;
+}

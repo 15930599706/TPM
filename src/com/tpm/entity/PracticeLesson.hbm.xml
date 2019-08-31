@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.PracticeLesson" table="集中实践课表">
+		<id name="practiceLessonid" column="集中实践课ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="xueqi" column="学期"></property>
+		<property name="hoursOfOutExp" column="课外实验学时"></property>
+		<property name="hoursOfOutCom" column="课外上机学时"></property>
+		<property name="qizhizhou" column="起止周"></property>
+		<property name="zuzhixingshi" column="组织形式"></property>
+		<property name="isxueweike" column="是否学位课"></property>
+		<property name="idallpracticeLesson" column="是否集中实践"></property>
+		<property name="renzheng" column="是否认证"></property>
+		<property name="beizhu" column="备注"></property>
+		<many-to-one name="curriculum"
+			class="com.tpm.entity.Curriculum" column="课程"></many-to-one>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="对应系"></many-to-one>
+		<many-to-one name="professional"
+			class="com.tpm.entity.Professional" column="专业方向"></many-to-one>
+		<many-to-one name="teachDepartment"
+			class="com.tpm.entity.Department" column="开课系"></many-to-one>
+		<many-to-one name="teacher" class="com.tpm.entity.User"
+			column="任课老师"></many-to-one>
+
+		<many-to-one name="experiment"
+			class="com.tpm.entity.Experiment" column="任课实验室"></many-to-one>
+		<many-to-one name="experimenter"
+			class="com.tpm.entity.User" column="任课实验员"></many-to-one>
+		<property name="workload" column="实习下载"></property>
+		<property name="workload1" column="课程设计下载"></property>
+		<property name="workload2" column="实验下载"></property>
+		<property name="workload3" column="毕业设计下载"></property>
+		<property name="workload4" column="其他下载"></property>
+
+	</class>
+</hibernate-mapping>

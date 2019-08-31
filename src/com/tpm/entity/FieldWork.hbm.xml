@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.FieldWork" table="实习本信息表">
+		<id name="fieldWorkid" column="基本信息ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="applicable" column="适用专业"></property>
+		<property name="maptheo" column="对应理论课"></property>
+		<property name="distribPer" column="学时分配" length="5000"></property>
+		<property name="assess" column="考核与评定" length="5000"></property>
+
+
+		<set name="setSyllabus_FieldWork" inverse="true" cascade="delete">
+			<key column="基本信息"></key>
+			<one-to-many class="com.tpm.entity.Syllabus_FieldWork" />
+		</set>
+	</class>
+</hibernate-mapping>

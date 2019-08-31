@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.WayCourseDesign" table="课程设计教学评价">
+		<id name="wayCourseDesignid" column="教学ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="aim" column="教学目标" length="5000"></property>
+		<property name="assess" column="教学要求" length="5000"></property>
+
+		<set name="setSyllabus_CourseDesign" inverse="true"
+			cascade="delete">
+			<key column="课程设计教学方法与评定"></key>
+			<one-to-many class="com.tpm.entity.Syllabus_CourseDesign" />
+		</set>
+	</class>
+</hibernate-mapping>

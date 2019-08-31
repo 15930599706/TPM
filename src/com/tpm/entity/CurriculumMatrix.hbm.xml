@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.CurriculumMatrix" table="课程矩阵表">
+		<id name="curriculumMatrixid" column="课程矩阵ID">
+			<generator class="native"></generator>
+		</id>
+		<many-to-one name="curriculum"
+			class="com.tpm.entity.Curriculum" column="对应课"></many-to-one>
+		<many-to-one name="ability" class="com.tpm.entity.Ability"
+			column="对应能力"></many-to-one>
+		<many-to-one name="professional"
+			class="com.tpm.entity.Professional" column="对应方向"></many-to-one>
+		<property name="count" column="顺序"></property>
+		<property name="score" column="评分"></property>
+	</class>
+</hibernate-mapping>

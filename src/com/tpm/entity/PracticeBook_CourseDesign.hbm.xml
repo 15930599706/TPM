@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.PracticeBooks_CourseDesign"
+		table="实践课课程设计大纲教材">
+		<id name="practiceBooks_CourseDesignid" column="教材ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="name" column="资源名称"></property>
+		<property name="syllabus_CourseDesignid" column="实践课课程设计大纲ID"></property>
+	</class>
+</hibernate-mapping>

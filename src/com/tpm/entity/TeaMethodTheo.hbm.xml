@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.TeaMethodTheo" table="教学方法与评价表">
+		<id name="teaMethodTheoid" column="教学方法与评价ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="teaMethod" column="教学方法" length="2000"></property>
+		<property name="teaok" column="教学目标达成度评价" length="2000"></property>
+		<property name="scoreok" column="成绩评定" length="2000"></property>
+
+		<set name="setSyllabus" inverse="true" cascade="delete">
+			<key column="大纲教学方法及评价"></key>
+			<one-to-many class="com.tpm.entity.Syllabus" />
+		</set>
+	</class>
+</hibernate-mapping>

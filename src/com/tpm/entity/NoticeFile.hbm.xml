@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.NoticeFile" table="通知文件表">
+		<id name="noticefileid" column="通知文件ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="noticefilename" column="通知文件内容"></property>
+		<property name="noticefiletime" column="上传时间"></property>
+		<property name="noticefilepath" column="存储路径"></property>
+		<many-to-one name="user" class="com.tpm.entity.User"
+			column="发布老师"></many-to-one>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+	"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+	"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- 2 方言 -->
+		<property name="hibernate.dialect">
+			org.hibernate.dialect.MySQL5Dialect
+		</property>
+		<!-- 3 sql语句 -->
+		<property name="hibernate.show_sql">true</property>
+		<property name="hibernate.format_sql">true</property>
+		<property name="hibernate.hbm2ddl.auto">update</property>
+
+		<mapping resource="com/tpm/entity/User.hbm.xml" />
+		<mapping resource="com/tpm/entity/College.hbm.xml" />
+		<mapping resource="com/tpm/entity/Department.hbm.xml" />
+		<mapping resource="com/tpm/entity/Curriculum.hbm.xml" />
+		<mapping resource="com/tpm/entity/NatureOfCourse.hbm.xml" />
+		<mapping resource="com/tpm/entity/Professional.hbm.xml" />
+		<mapping resource="com/tpm/entity/Notice.hbm.xml" />
+		<mapping resource="com/tpm/entity/NoticeFile.hbm.xml" />
+		<mapping resource="com/tpm/entity/PPTrainingConcept.hbm.xml" />
+		<mapping resource="com/tpm/entity/PTBasicInformation.hbm.xml" />
+		<mapping resource="com/tpm/entity/Ability.hbm.xml" />
+		<mapping resource="com/tpm/entity/Topology.hbm.xml" />
+		<mapping resource="com/tpm/entity/Analysis.hbm.xml" />
+		<mapping resource="com/tpm/entity/MainTainOfPT.hbm.xml" />
+		<mapping resource="com/tpm/entity/TrainingEvents.hbm.xml" />
+		<mapping resource="com/tpm/entity/PracticeLesson.hbm.xml" />
+		<mapping resource="com/tpm/entity/TheoreticalLesson.hbm.xml" />
+		<mapping resource="com/tpm/entity/BaseTheo.hbm.xml" />
+		<mapping resource="com/tpm/entity/TeaMethodTheo.hbm.xml" />
+		<mapping resource="com/tpm/entity/ContentTheo.hbm.xml" />
+		<mapping resource="com/tpm/entity/TextBooks.hbm.xml" />
+		<mapping resource="com/tpm/entity/ExperimentContent.hbm.xml" />
+		<mapping resource="com/tpm/entity/DiscussContent.hbm.xml" />
+		<mapping resource="com/tpm/entity/ThreeProject.hbm.xml" />
+		<mapping resource="com/tpm/entity/BasePractice.hbm.xml" />
+		<mapping resource="com/tpm/entity/PracticeBook.hbm.xml" />
+		<mapping resource="com/tpm/entity/OtherContent.hbm.xml" />
+		<mapping resource="com/tpm/entity/ContentGra.hbm.xml" />
+		<mapping resource="com/tpm/entity/FieldWork.hbm.xml" />
+		<mapping resource="com/tpm/entity/FieldContent.hbm.xml" />
+		<mapping resource="com/tpm/entity/BaseCourseDesign.hbm.xml" />
+		<mapping resource="com/tpm/entity/ConCourseDesign.hbm.xml" />
+		<mapping resource="com/tpm/entity/WayCourseDesign.hbm.xml" />
+		<mapping resource="com/tpm/entity/BaseExperiment.hbm.xml" />
+		<mapping resource="com/tpm/entity/ExpermentProject.hbm.xml" />
+		<mapping resource="com/tpm/entity/TopologyTag.hbm.xml" />
+		<mapping resource="com/tpm/entity/TeachCal.hbm.xml" />
+		<mapping resource="com/tpm/entity/CurriculumMatrix.hbm.xml" />
+		<mapping resource="com/tpm/entity/ScoreThreshold.hbm.xml" />
+		<mapping resource="com/tpm/entity/TrainingAnoter.hbm.xml" />
+		<mapping resource="com/tpm/entity/TeachObj.hbm.xml" />
+		<mapping resource="com/tpm/entity/IndexSelect.hbm.xml" />
+		<mapping resource="com/tpm/entity/AbilityAndTeachObj.hbm.xml" />
+		<mapping resource="com/tpm/entity/Syllabus.hbm.xml" />
+		<mapping resource="com/tpm/entity/ApplicationSyllabus.hbm.xml" />
+		<mapping resource="com/tpm/entity/Syllabus_FieldWork.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/ApplicationSyllabus_FieldWork.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/Syllabus_CourseDesign.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/ApplicationSyllabus_CourseDesign.hbm.xml" />
+		<mapping resource="com/tpm/entity/Syllabus_Gra.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/ApplicationSyllabus_Gra.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/Syllabus_InnerExperiment.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/ApplicationSyllabus_InnerExperiment.hbm.xml" />
+		<mapping resource="com/tpm/entity/TeachObj_FieldWork.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/IndexSelect_FieldWork.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/AbilityAndTeachObj_FieldWork.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/TeachObj_CourseDesign.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/IndexSelect_CourseDesign.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/AbilityAndTeachObj_CourseDesign.hbm.xml" />
+		<mapping resource="com/tpm/entity/TeachObj_Gra.hbm.xml" />
+		<mapping resource="com/tpm/entity/IndexSelect_Gra.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/AbilityAndTeachObj_Gra.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/TeachObj_InnerExperiment.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/IndexSelect_InnerExperiment.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/AbilityAndTeachObj_InnerExperiment.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/PracticeBook_CourseDesign.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/PracticeBook_InnerExperiment.hbm.xml" />
+
+		<mapping
+			resource="com/tpm/entity/TeachObj_TheoInnerExperiment.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/IndexSelect_TheoInnerExperiment.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/AbilityAndTeachObj_TheoInnerExperiment.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/Syllabus_TheoInnerExperiment.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/ApplicationSyllabus_TheoInnerExperiment.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/ExpermentProject_Theo.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/TextBooks_InnerExperiment.hbm.xml" />
+		<mapping resource="com/tpm/entity/AvePerThreshold.hbm.xml" />
+
+		<mapping resource="com/tpm/entity/DistributeHour_Theo.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/DistributeHour_TheoInnerExperiment.hbm.xml" />
+		<mapping resource="com/tpm/entity/DistributeHour_Gra.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/DistributeHour_CourseDesign.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/DistributeHour_InnerExperiment.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/BaseExperiment_TheoInnerExperiment.hbm.xml" />
+
+		<mapping resource="com/tpm/entity/MainTainOfPTTag.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/ApplicationMainTainOfPT.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/ApplicationTrainingEvents.hbm.xml" />
+		<mapping resource="com/tpm/entity/Experiment.hbm.xml" />
+		<mapping resource="com/tpm/entity/ExperimentLog.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/BaseExpTheoInnerRelateExpProjectTheo.hbm.xml" />
+		<mapping
+			resource="com/tpm/entity/DistributeHourRelateExperProject.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.FieldContent" table="实习内容表">
+		<id name="fieldContentid" column="内容信息ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="content" column="教学内容" length="5000"></property>
+		<property name="request" column="教学要求" length="5000"></property>
+		<property name="schedule" column="教学安排" length="5000"></property>
+		<property name="way" column="教学方式" length="5000"></property>
+		<set name="setSyllabus_FieldWork" inverse="true" cascade="delete">
+			<key column="实习内容"></key>
+			<one-to-many class="com.tpm.entity.Syllabus_FieldWork" />
+		</set>
+	</class>
+</hibernate-mapping>

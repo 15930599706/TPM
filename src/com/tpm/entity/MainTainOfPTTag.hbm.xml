@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.MainTainOfPTTag" table="培养计划总体安排标志表">
+		<id name="mainTainOfPTTagid" column="总体安排标志ID">
+			<generator class="native"></generator>
+		</id>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="对应系"></many-to-one>
+		<property name="tag" column="标志"></property>
+	</class>
+</hibernate-mapping>

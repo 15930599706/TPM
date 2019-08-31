@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.PPTrainingConcept" table="专业人才培养理念表">
+		<id name="PPTrainingConceptid" column="培养理念ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="ProfessionalDevelopmentPlanning"
+			column="专业发展规划" length="1000"></property>
+		<property name="ProfessionalFeatures" column="专业特色"
+			length="1000"></property>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="对应系"></many-to-one>
+	</class>
+</hibernate-mapping>

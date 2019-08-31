@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.MainTainOfPT" table="培养计划总体安排表">
+		<id name="mainTainOfPTid" column="培养计划总体安排ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="week1" column="第1周"></property>
+		<property name="week2" column="第2周"></property>
+		<property name="week3" column="第3周"></property>
+		<property name="week4" column="第4周"></property>
+		<property name="week5" column="第5周"></property>
+		<property name="week6" column="第6周"></property>
+		<property name="week7" column="第7周"></property>
+		<property name="week8" column="第8周"></property>
+		<property name="week9" column="第9周"></property>
+		<property name="week10" column="第10周"></property>
+		<property name="week11" column="第11周"></property>
+		<property name="week12" column="第12周"></property>
+		<property name="week13" column="第13周"></property>
+		<property name="week14" column="第14周"></property>
+		<property name="week15" column="第15周"></property>
+		<property name="week16" column="第16周"></property>
+		<property name="week17" column="第17周"></property>
+		<property name="week18" column="第18周"></property>
+		<property name="week19" column="第19周"></property>
+		<property name="week20" column="第20周"></property>
+		<property name="semester" column="学期"></property>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="对应系"></many-to-one>
+
+		<set name="setApplicationMainTainOfPT" inverse="true"
+			cascade="delete">
+			<key column="对应总体安排"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationMainTainOfPT" />
+		</set>
+	</class>
+</hibernate-mapping>

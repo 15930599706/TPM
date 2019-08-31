@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.College" table="学院表">
+		<id name="collegeid" column="学院代码">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="collegeCname" column="学院名称"></property>
+		<property name="collegeEname" column="学院英文名称" length="500"></property>
+		<property name="collegeIntroduction" column="学院简称"></property>
+		<set name="setDepartment" inverse="true" cascade="delete">
+			<key column="所属学院"></key>
+			<one-to-many class="com.tpm.entity.Department" />
+		</set>
+		<set name="setUser" inverse="true" cascade="delete">
+			<key column="部门（学院）"></key>
+			<one-to-many class="com.tpm.entity.User" />
+		</set>
+		<set name="setCurriculum" inverse="true" cascade="delete">
+			<key column="开课学院"></key>
+			<one-to-many class="com.tpm.entity.Curriculum" />
+		</set>
+		<set name="setExperiment" inverse="true" cascade="delete">
+			<key column="部门（学院）"></key>
+			<one-to-many class="com.tpm.entity.Experiment" />
+		</set>
+	</class>
+</hibernate-mapping>

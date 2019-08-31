@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.DiscussContent" table="理论课讨论课内容">
+		<id name="discussContentid" column="讨论课ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="num" column="支撑教学目标"></property>
+		<property name="aim" column="讨论课目标" length="5000"></property>
+		<property name="content" column="讨论课内容" length="5000"></property>
+		<property name="implementation" column="讨论课的要求与成绩评定"
+			length="5000"></property>
+		<property name="request" column="本章难点" length="5000"></property>
+		<property name="syllabusID" column="大纲表ID"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.TrainingAnother" table="课外安排与要求">
+		<id name="trainingAnotherid" column="课外安排与要求ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="extracurricular" column="课外安排与要求"
+			length="5000"></property>
+		<property name="businessPractice" column="企业要求集中实践安排与要求"
+			length="5000"></property>
+		<property name="businessTeacher" column="企业教师授课安排与要求"
+			length="5000"></property>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="对应系"></many-to-one>
+	</class>
+</hibernate-mapping>

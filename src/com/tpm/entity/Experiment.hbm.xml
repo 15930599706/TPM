@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.Experiment" table="实验室表">
+		<id name="experimentid" column="实验室ID">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="experimentname" column="实验室名"></property>
+		<many-to-one name="college" class="com.tpm.entity.College"
+			column="部门（学院）"></many-to-one>
+
+		<set name="setTheoreticalLesson" inverse="true" cascade="delete">
+			<key column="任课实验室"></key>
+			<one-to-many class="com.tpm.entity.TheoreticalLesson" />
+		</set>
+
+		<set name="setUser" inverse="true" cascade="delete">
+			<key column="实验室"></key>
+			<one-to-many class="com.tpm.entity.User" />
+		</set>
+
+		<set name="setExperiment_before" inverse="true" cascade="delete">
+			<key column="之前所在实验室"></key>
+			<one-to-many class="com.tpm.entity.ExperimentLog" />
+		</set>
+		<set name="setExperiment_after" inverse="true" cascade="delete">
+			<key column="之后所在实验室"></key>
+			<one-to-many class="com.tpm.entity.ExperimentLog" />
+		</set>
+		<set name="setPracticeLessonTeachC" inverse="true"
+			cascade="delete">
+			<key column="任课实验室"></key>
+			<one-to-many class="com.tpm.entity.PracticeLesson" />
+		</set>
+	</class>
+</hibernate-mapping>

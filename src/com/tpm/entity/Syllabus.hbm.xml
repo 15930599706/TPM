@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.Syllabus" table="理论课大纲表">
+		<id name="syllabusid" column="理论课大纲ID">
+			<generator class="native"></generator>
+		</id>
+		<many-to-one name="baseTheo"
+			class="com.tpm.entity.BaseTheo" column="大纲基本信息"></many-to-one>
+		<many-to-one name="teaMethodTheo"
+			class="com.tpm.entity.TeaMethodTheo" column="大纲教学方法及评价"></many-to-one>
+
+
+		<set name="setApplicationSyllabus" inverse="true" cascade="delete">
+			<key column="对应大纲"></key>
+			<one-to-many class="com.tpm.entity.ApplicationSyllabus" />
+		</set>
+	</class>
+</hibernate-mapping>

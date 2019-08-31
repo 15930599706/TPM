@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.ApplicationMainTainOfPT"
+		table="培养计划总体安排应用专业表">
+		<id name="applicationMainTainOfPTid" column="培养计划总体安排应用专业ID">
+			<generator class="native"></generator>
+		</id>
+
+		<many-to-one name="mainTainOfPT"
+			class="com.tpm.entity.MainTainOfPT" column="对应总体安排"></many-to-one>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="对应系"></many-to-one>
+		<many-to-one name="professional"
+			class="com.tpm.entity.Professional" column="对应方向"></many-to-one>
+	</class>
+</hibernate-mapping>

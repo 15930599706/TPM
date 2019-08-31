@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.User" table="教师表">
+		<id name="tnum" column="职工号">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="password" column="密码"></property>
+		<property name="username" column="姓名"></property>
+		<property name="sex" column="性别"></property>
+		<many-to-one name="college" class="com.tpm.entity.College"
+			column="部门（学院）"></many-to-one>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="科室（系）"></many-to-one>
+		<many-to-one name="experiment"
+			class="com.tpm.entity.Experiment" column="实验室"></many-to-one>
+		<property name="adminlevel" column="管理员级别"></property>
+		<property name="experimenterlevel" column="实验员级别"></property>
+		<set name="setNotice" inverse="true" cascade="delete">
+			<key column="发布老师"></key>
+			<one-to-many class="com.tpm.entity.Notice" />
+		</set>
+		<set name="setNoticeFile" inverse="true" cascade="delete">
+			<key column="发布老师"></key>
+			<one-to-many class="com.tpm.entity.NoticeFile" />
+		</set>
+
+
+		<set name="setTheoreticalLesson" inverse="true" cascade="delete">
+			<key column="任课老师"></key>
+			<one-to-many class="com.tpm.entity.TheoreticalLesson" />
+		</set>
+
+
+		<set name="setTheoreticalLessonC" inverse="true" cascade="delete">
+			<key column="课内实验任课老师"></key>
+			<one-to-many class="com.tpm.entity.TheoreticalLesson" />
+		</set>
+
+
+		<set name="setPracticeLesson" inverse="true" cascade="delete">
+			<key column="任课老师"></key>
+			<one-to-many class="com.tpm.entity.PracticeLesson" />
+		</set>
+		<set name="setTeachCal" inverse="true" cascade="delete">
+			<key column="发布老师"></key>
+			<one-to-many class="com.tpm.entity.TeachCal" />
+		</set>
+
+		<set name="setTheoreticalLesson_Experiment" inverse="true"
+			cascade="delete">
+			<key column="任课实验员"></key>
+			<one-to-many class="com.tpm.entity.TheoreticalLesson" />
+		</set>
+
+		<set name="setUser_modify" inverse="true" cascade="delete">
+			<key column="修改者"></key>
+			<one-to-many class="com.tpm.entity.ExperimentLog" />
+		</set>
+		<set name="setUser_modified" inverse="true" cascade="delete">
+			<key column="被修改者"></key>
+			<one-to-many class="com.tpm.entity.ExperimentLog" />
+		</set>
+
+		<set name="setPracticeLessonC" inverse="true" cascade="delete">
+			<key column="任课实验员"></key>
+			<one-to-many class="com.tpm.entity.PracticeLesson" />
+		</set>
+	</class>
+</hibernate-mapping>

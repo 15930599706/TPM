@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.NatureOfCourse" table="课程性质表">
+		<id name="natureOfCourseid" column="课程性质编码">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="natureOfCoursename" column="课程性质名称"></property>
+		<property name="natureOfCourseeasyname" column="课程性质简称"></property>
+		<property name="natureOfCoursefor" column="对应"></property>
+		<property name="isForSchoolChoose" column="是否校公选课性质"></property>
+		<property name="chooseOrMust" column="对应选必修"></property>
+		<set name="setCurriculum" inverse="true" cascade="delete">
+			<key column="课程性质"></key>
+			<one-to-many class="com.tpm.entity.Curriculum" />
+		</set>
+	</class>
+</hibernate-mapping>

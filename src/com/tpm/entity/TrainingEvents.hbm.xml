@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.TrainingEvents" table="培养计划总体安排事件表">
+		<id name="trainingEventsid" column="培养计划总体安排事件ID">
+			<generator class="native"></generator>
+		</id>
+
+		<property name="trainingEventsname" column="事件名称"></property>
+		<property name="trainingEventscode" column="事件代码"></property>
+		<property name="semester1" column="大一上学期"></property>
+		<property name="semester2" column="大一下学期"></property>
+		<property name="semester3" column="大二上学期"></property>
+		<property name="semester4" column="大二下学期"></property>
+		<property name="semester5" column="大三上学期"></property>
+		<property name="semester6" column="大三下学期"></property>
+		<property name="semester7" column="大四上学期"></property>
+		<property name="semester8" column="大四下学期"></property>
+		<property name="semester9" column="大五上学期"></property>
+		<property name="semester10" column="大五下学期"></property>
+		<property name="totaltag" column="合计标记"></property>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="对应系"></many-to-one>
+		<set name="setApplicationTrainingEvents" inverse="true"
+			cascade="delete">
+			<key column="对应总体安排事件"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationTrainingEvents" />
+		</set>
+
+	</class>
+</hibernate-mapping>

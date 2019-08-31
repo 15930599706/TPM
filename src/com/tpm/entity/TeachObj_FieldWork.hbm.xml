@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.TeachObj_FieldWork" table="教学目标实习表">
+		<id name="teachObj_FieldWorkid" column="教学目标实习表ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="teachObjContent_FieldWork" column="教学目标内容"></property>
+
+		<set name="setAbilityAndTeachObj_FieldWork" inverse="true"
+			cascade="delete">
+			<key column="对应教学目标"></key>
+			<one-to-many
+				class="com.tpm.entity.AbilityAndTeachObj_FieldWork" />
+		</set>
+
+		<property name="syllabus_FieldWorkid" column="大纲实习表ID"></property>
+	</class>
+</hibernate-mapping>

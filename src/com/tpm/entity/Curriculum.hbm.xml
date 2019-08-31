@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.Curriculum" table="课程表">
+		<id name="curriculumid" column="课程代码">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="curriculumCname" column="课程中文名称"></property>
+		<property name="curriculumEname" column="课程英文名称" length="500"></property>
+		<property name="credit" column="学分"></property>
+		<property name="hoursOfWeek" column="周学时"></property>
+		<property name="hoursOfALL" column="总学时"></property>
+		<property name="hoursOfClass" column="上课学时"></property>
+		<property name="hoursOfExp" column="实验学时"></property>
+		<property name="hoursOfCom" column="上机学时"></property>
+		<property name="hoursOfPractice" column="实践学时"></property>
+		<property name="courseLei" column="课程类别"></property>
+		<property name="courseCategory" column="课程归属"></property>
+		<property name="courseIntroduction" column="课程简介"
+			length="10000"></property>
+		<property name="curriculumpingtai" column="课程平台"></property>
+		<many-to-one name="college" class="com.tpm.entity.College"
+			column="开课学院"></many-to-one>
+		<many-to-one name="natureOfCourse"
+			class="com.tpm.entity.NatureOfCourse" column="课程性质" lazy="false"></many-to-one>
+		<property name="newcurriculum" column="新添课程"></property>
+
+
+		<set name="setPracticeLesson" inverse="true" cascade="delete">
+			<key column="课程"></key>
+			<one-to-many class="com.tpm.entity.PracticeLesson" />
+		</set>
+		<set name="setTheoreticalLesson" inverse="true" cascade="delete">
+			<key column="课程"></key>
+			<one-to-many class="com.tpm.entity.TheoreticalLesson" />
+		</set>
+		<set name="setCurriculumMatrix" inverse="true" cascade="delete">
+			<key column="对应课"></key>
+			<one-to-many class="com.tpm.entity.CurriculumMatrix" />
+		</set>
+
+		<set name="setApplicationSyllabus" inverse="true" cascade="delete">
+			<key column="对应课"></key>
+			<one-to-many class="com.tpm.entity.ApplicationSyllabus" />
+		</set>
+		<set name="setApplicationSyllabus_FieldWork" inverse="true"
+			cascade="delete">
+			<key column="对应课"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_FieldWork" />
+		</set>
+		<set name="setApplicationSyllabus_CourseDesign" inverse="true"
+			cascade="delete">
+			<key column="对应课"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_CourseDesign" />
+		</set>
+		<set name="setApplicationSyllabus_Gra" inverse="true"
+			cascade="delete">
+			<key column="对应课"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_Gra" />
+		</set>
+		<set name="setApplicationSyllabus_InnerExperiment" inverse="true"
+			cascade="delete">
+			<key column="对应课"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_InnerExperiment" />
+		</set>
+		<set name="setApplicationSyllabus_TheoInnerExperiment"
+			inverse="true" cascade="delete">
+			<key column="对应课"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_TheoInnerExperiment" />
+		</set>
+
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.ExperimentContent" table="理论课实验内容">
+		<id name="experimentContentid" column="实验ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="num" column="支撑教学目标"></property>
+		<property name="aim" column="教学目标" length="5000"></property>
+		<property name="content" column="本章主要内容" length="5000"></property>
+		<property name="syllabusID" column="大纲表ID"></property>
+
+	</class>
+</hibernate-mapping>

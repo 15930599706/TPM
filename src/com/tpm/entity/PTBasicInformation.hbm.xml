@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.PTBasicInformation" table="培养计划基本信息表">
+		<id name="ptBasicInformationid" column="培养计划基本信息ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="learningTime" column="学制"></property>
+		<property name="enableGrade" column="启用年级"></property>
+		<property name="trainingObjectives" column="培养目标"
+			length="2000"></property>
+		<property name="trainingRequirements" column="培养要求"
+			length="2000"></property>
+		<property name="abilityCount" column="毕业生应获得知识和能力的个数"></property>
+		<property name="mainCourses" column="主干学科"></property>
+		<property name="degreeCourses" column="学位课" length="500"></property>
+		<property name="degree" column="授予学位"></property>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="对应系"></many-to-one>
+	</class>
+</hibernate-mapping>

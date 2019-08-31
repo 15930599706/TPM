@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.BasePractice" table="毕业设计基本信息">
+		<id name="basePracticeid" column="实践课ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="topic" column="选题原则" length="3000"></property>
+		<property name="schedule" column="进度安排" length="3000"></property>
+		<property name="assess" column="考核与评定" length="3000"></property>
+
+
+		<set name="setSyllabus_Gra" inverse="true" cascade="delete">
+			<key column="毕业设计基本信息"></key>
+			<one-to-many class="com.tpm.entity.Syllabus_Gra" />
+		</set>
+
+
+	</class>
+</hibernate-mapping>

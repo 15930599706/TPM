@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.Analysis" table="指标分解表">
+		<id name="analysisid" column="指标分解ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="analysiscontent" column="指标分解内容"
+			length="1000"></property>
+		<many-to-one name="ability" class="com.tpm.entity.Ability"
+			column="对应能力"></many-to-one>
+		<set name="setIndexSelect" inverse="true" cascade="delete">
+			<key column="对应指标点"></key>
+			<one-to-many class="com.tpm.entity.IndexSelect" />
+		</set>
+
+		<set name="setIndexSelect_TheoInnerExperiment" inverse="true"
+			cascade="delete">
+			<key column="对应指标点"></key>
+			<one-to-many
+				class="com.tpm.entity.IndexSelect_TheoInnerExperiment" />
+		</set>
+
+		<set name="setIndexSelect_FieldWork" inverse="true"
+			cascade="delete">
+			<key column="对应指标点"></key>
+			<one-to-many class="com.tpm.entity.IndexSelect_FieldWork" />
+		</set>
+
+		<set name="setIndexSelect_CourseDesign" inverse="true"
+			cascade="delete">
+			<key column="对应指标点"></key>
+			<one-to-many
+				class="com.tpm.entity.IndexSelect_CourseDesign" />
+		</set>
+
+		<set name="setIndexSelect_InnerExperiment" inverse="true"
+			cascade="delete">
+			<key column="对应指标点"></key>
+			<one-to-many
+				class="com.tpm.entity.IndexSelect_InnerExperiment" />
+		</set>
+
+		<set name="setIndexSelect_Gra" inverse="true" cascade="delete">
+			<key column="对应指标点"></key>
+			<one-to-many class="com.tpm.entity.IndexSelect_Gra" />
+		</set>
+	</class>
+</hibernate-mapping>

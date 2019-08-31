@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.TeachObj_Gra" table="教学目标毕业设计表">
+		<id name="teachObj_Graid" column="教学目标毕业设计表ID">
+			<generator class="native"></generator>
+		</id>
+		<property name="teachObjContent_Gra" column="教学目标内容"></property>
+
+		<set name="setAbilityAndTeachObj_Gra" inverse="true"
+			cascade="delete">
+			<key column="对应教学目标"></key>
+			<one-to-many
+				class="com.tpm.entity.AbilityAndTeachObj_Gra" />
+		</set>
+
+		<property name="syllabus_Graid" column="大纲毕业设计表ID"></property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+eclipse.preferences.version=1
+encoding//WebRoot/admin/pywh/addPro.jsp=UTF-8
+encoding//WebRoot/admin/pywh/addProDir.jsp=UTF-8
+encoding//WebRoot/admin/regiesterLogin/register_comp.jsp=UTF-8
+encoding//WebRoot/admin/regiesterLogin/register_stu.jsp=UTF-8
+encoding//WebRoot/getIn.jsp=UTF-8
+encoding//WebRoot/images/city.json=UTF-8
+encoding//WebRoot/images/css/denglu.css=UTF-8
+encoding//WebRoot/images/css/login.css=UTF-8
+encoding//WebRoot/images/json/add.json=UTF-8
+encoding//WebRoot/images/json/city.json=UTF-8
+encoding//src/com/tpm/dao/StudentDao.java=UTF-8
+encoding//src/com/tpm/service/BaseExperimentService.java=UTF-8
+encoding//src/com/tpm/service/BasePracticeService.java=UTF-8
+encoding//src/com/tpm/service/ConCourseDesignService.java=GBK
+encoding//src/com/tpm/servlet/AnalysisEmotionServlet.java=UTF-8
+encoding/<project>=UTF-8

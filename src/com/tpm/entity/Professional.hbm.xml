@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.Professional" table="2017专业方向表">
+		<id name="professionalid" column="专业方向代码">
+			<generator class="assigned"></generator>
+		</id>
+		<property name="professionalname" column="专业方向名称"></property>
+		<many-to-one name="department"
+			class="com.tpm.entity.Department" column="专业（系）"></many-to-one>
+		<set name="setTheoreticalLesson" inverse="true" cascade="delete">
+			<key column="专业方向"></key>
+			<one-to-many class="com.tpm.entity.TheoreticalLesson" />
+		</set>
+		<set name="setPracticeLesson" inverse="true" cascade="delete">
+			<key column="专业方向"></key>
+			<one-to-many class="com.tpm.entity.PracticeLesson" />
+		</set>
+		<set name="setApplicationSyllabus" inverse="true" cascade="delete">
+			<key column="对应方向"></key>
+			<one-to-many class="com.tpm.entity.ApplicationSyllabus" />
+		</set>
+		<set name="setApplicationSyllabus_FieldWork" inverse="true"
+			cascade="delete">
+			<key column="对应方向"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_FieldWork" />
+		</set>
+		<set name="setApplicationSyllabus_CourseDesign" inverse="true"
+			cascade="delete">
+			<key column="对应方向"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_CourseDesign" />
+		</set>
+		<set name="setApplicationSyllabus_Gra" inverse="true"
+			cascade="delete">
+			<key column="对应方向"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_Gra" />
+		</set>
+		<set name="setApplicationSyllabus_InnerExperiment" inverse="true"
+			cascade="delete">
+			<key column="对应方向"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_InnerExperiment" />
+		</set>
+
+		<set name="setApplicationSyllabus_TheoInnerExperiment"
+			inverse="true" cascade="delete">
+			<key column="对应方向"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationSyllabus_TheoInnerExperiment" />
+		</set>
+		<set name="setApplicationMainTainOfPT" inverse="true"
+			cascade="delete">
+			<key column="对应方向"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationMainTainOfPT" />
+		</set>
+		<set name="setApplicationTrainingEvents" inverse="true"
+			cascade="delete">
+			<key column="对应方向"></key>
+			<one-to-many
+				class="com.tpm.entity.ApplicationTrainingEvents" />
+		</set>
+		<set name="setCurriculumMatrix" inverse="true" cascade="delete">
+			<key column="对应方向"></key>
+			<one-to-many class="com.tpm.entity.CurriculumMatrix" />
+		</set>
+		<set name="setTopology" inverse="true" cascade="delete">
+			<key column="对应专业方向"></key>
+			<one-to-many class="com.tpm.entity.Topology" />
+		</set>
+	</class>
+</hibernate-mapping>

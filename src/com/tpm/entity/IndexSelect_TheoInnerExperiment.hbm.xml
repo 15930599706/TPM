@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.tpm.entity.IndexSelect_TheoInnerExperiment"
+		table="指标点选择理论课课内实验表">
+		<id name="indexSelect_TheoInnerExperimentid" column="指标点选择ID">
+			<generator class="native"></generator>
+		</id>
+		<many-to-one name="ability" class="com.tpm.entity.Ability"
+			column="对应毕业要求"></many-to-one>
+		<many-to-one name="analisis"
+			class="com.tpm.entity.Analysis" column="对应指标点"></many-to-one>
+		<property name="syllabusid" column="大纲表课内实验ID"></property>
+	</class>
+</hibernate-mapping>
